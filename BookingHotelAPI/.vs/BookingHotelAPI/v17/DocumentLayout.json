@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\class\\stringformater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:class\\stringformater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 765,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Models\\User.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\User.cs",
+              "RelativeToolTip": "Models\\User.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAcwCQAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T06:16:10.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StringFormater.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Class\\StringFormater.cs",
+              "RelativeDocumentMoniker": "Class\\StringFormater.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Class\\StringFormater.cs",
+              "RelativeToolTip": "Class\\StringFormater.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T06:01:29.552Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAnwBsAAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T07:32:43.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAAAsAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T07:32:05.532Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
