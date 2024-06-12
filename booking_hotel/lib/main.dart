@@ -1,10 +1,18 @@
 import 'package:booking_hotel/class/hotel.dart';
-import 'package:booking_hotel/home_layout.dart';
 import 'package:booking_hotel/screens/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:io';
 
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: WelcomeScreen(),

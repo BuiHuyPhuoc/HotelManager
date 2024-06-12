@@ -1,3 +1,6 @@
+import 'package:booking_hotel/class/api_respond.dart';
+import 'package:booking_hotel/class/user.dart';
+import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:booking_hotel/theme/theme.dart';
@@ -18,6 +21,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool agreePersonalData = true;
   DateTime selectedDate = DateTime.now();
   DateTime? _selectedDate;
+  TextEditingController fullnameTextField = new TextEditingController();
+  TextEditingController emailTextField = new TextEditingController();
+  TextEditingController passwordTextField = new TextEditingController();
+  TextEditingController dateOfBirthTextField = new TextEditingController();
+  TextEditingController phoneNumberTextField = new TextEditingController();
+  TextEditingController CCCDTextField = new TextEditingController();
+
+  @override
+  void dispose() {
+    fullnameTextField.dispose();
+    emailTextField.dispose();
+    passwordTextField.dispose();
+    dateOfBirthTextField.dispose();
+    phoneNumberTextField.dispose();
+    CCCDTextField.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -58,18 +79,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       const SizedBox(
                         height: 20.0,
-                      ),
-//test
+                      ), //test
                       TextFormField(
+                        controller: fullnameTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Full name';
+                            return 'Nhập họ tên.';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Full Name'),
-                          hintText: 'Enter Full Name',
+                          label: const Text('Họ tên'),
+                          hintText: 'Nhập họ tên',
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -93,15 +114,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
 
                       TextFormField(
+                        controller: emailTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Email';
+                            return 'Nhập email.';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
                           label: const Text('Email'),
-                          hintText: 'Enter Email',
+                          hintText: 'Nhập email',
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -125,11 +147,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       //DOB
                       TextFormField(
+                        controller: dateOfBirthTextField,
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: 'Date of Birth',
+                          labelText: 'Ngày sinh',
                           hintText: _selectedDate == null
-                              ? 'Enter Date of Birth'
+                              ? 'Nhập ngày sinh'
                               : DateFormat('dd/MM/yyyy')
                                   .format(_selectedDate!), // Format the date
                           border: OutlineInputBorder(
@@ -155,6 +178,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           if (pickedDate != null) {
                             setState(() {
                               _selectedDate = pickedDate;
+                              dateOfBirthTextField.text =
+                                  DateFormat('dd/MM/yyyy').format(pickedDate);
                             });
                           }
                         },
@@ -163,16 +188,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       // Phone Number Field
                       TextFormField(
+                        controller: phoneNumberTextField,
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Phone Number';
+                            return 'Nhập số điện thoại';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Phone Number'),
-                          hintText: 'Enter Phone Number',
+                          label: const Text('Số điện thoại'),
+                          hintText: 'Nhập số điện thoại ...',
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -197,16 +223,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       //CCCD
                       TextFormField(
+                        controller: CCCDTextField,
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter CCCD number';
+                            return 'Nhập CCCD';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('CCCD Number'),
-                          hintText: 'Enter CCCD Number',
+                          label: const Text('Số CCCD'),
+                          hintText: 'Nhập số CCCD',
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -230,17 +257,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                       //PASSWORD
                       TextFormField(
+                        controller: passwordTextField,
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter Password';
+                            return 'Nhập mật khẩu.';
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Password'),
-                          hintText: 'Enter Password',
+                          label: const Text('Mật khẩu'),
+                          hintText: 'Nhập mật khẩu.',
                           hintStyle: const TextStyle(
                             color: Colors.black26,
                           ),
@@ -276,13 +304,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             activeColor: lightColorScheme.primary,
                           ),
                           const Text(
-                            'I agree to the processing of ',
+                            'Tôi đồng ý với ',
                             style: TextStyle(
                               color: Colors.black45,
                             ),
                           ),
                           Text(
-                            'Personal data',
+                            'các điều khoản và dịch vụ.',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: lightColorScheme.primary,
@@ -299,20 +327,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Processing Data'),
+                                  content: Text('Đang xử lý'),
                                 ),
                               );
+
+                              User getInfo = User(
+                                  userGmail: emailTextField.text,
+                                  userPassword: passwordTextField.text,
+                                  userName: fullnameTextField.text,
+                                  dateOfBirth: dateOfBirthTextField.text,
+                                  userPhone: phoneNumberTextField.text,
+                                  userIdcard: CCCDTextField.text);
+
+                              ApiResponse response = await createUser(getInfo);
+
+                              if (!response.status) {
+                                WarningToast(
+                                  context: context,
+                                  content: response.message,
+                                  duration: Duration(seconds: 2),
+                                ).ShowToast();
+                                return;
+                              } else {
+                                SuccessToast(
+                                  context: context,
+                                  content: response.message,
+                                ).ShowToast();
+                                return;
+                              }
                             } else if (!agreePersonalData) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Please agree to the processing of personal data')),
-                              );
+                              WarningToast(
+                                context: context,
+                                content:
+                                    'Vui lòng đồng ý với các điều khoản và dịch vụ',
+                                duration: Duration(seconds: 2),
+                              ).ShowToast();
+                              return;
                             }
                           },
                           child: const Text('Sign up'),

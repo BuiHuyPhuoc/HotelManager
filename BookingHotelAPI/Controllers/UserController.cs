@@ -23,13 +23,33 @@ namespace BookingHotelAPI.Controllers
             var users = db.Users.ToList();
             return Json(users);
         }
-        [HttpGet]
-        [Route("UserLogin")]
-        public JsonResult UserLogin(string UserGmail, string UserPassword)
+
+        public class UserLoginDto
         {
-            var getUser = db.Users.Where(x => x.UserGmail == UserGmail && x.UserPassword == UserPassword).FirstOrDefault();
-            return Json(getUser);
+            public string UserGmail { get; set; }
+            public string UserPassword { get; set; }
         }
+
+        [HttpPost]
+        [Route("UserLogin")]
+        public ActionResult UserLogin([FromBody] UserLoginDto loginDto)
+        {
+            var getUser = db.Users
+                            .Where(x => x.UserGmail == loginDto.UserGmail && x.UserPassword == loginDto.UserPassword)
+                            .FirstOrDefault();
+
+            if (getUser != null)
+            {
+                // Trả về thông báo thành công và thông tin người dùng
+                return Ok(new { Status = true, User = getUser });
+            }
+            else
+            {
+                // Trả về thông báo thất bại
+                return Ok(new { Status = false, User = (User?)null });
+            }
+        }
+
 
         [HttpPost]
         [Route("UserRegister")]
@@ -51,28 +71,28 @@ namespace BookingHotelAPI.Controllers
                         return BadRequest("Vui lòng nhập đủ thông tin.");
 
                     if (!StringFormater.EmailIsValid(user.UserGmail))
-                        return BadRequest("Sai định dạng email.");
+                        return BadRequest("Sai định dạng email");
 
                     if (!StringFormater.PhoneNumberIsValid(user.UserPhone))
-                        return BadRequest("Số điện thoại bao gồm 10 kí tự số.");
+                        return BadRequest("Số điện thoại bao gồm 10 kí tự số");
 
                     if (!StringFormater.IDCardIsValid(user.UserIdcard))
                     {
-                        return BadRequest("Sai định dạng số định danh.");
+                        return BadRequest("Sai định dạng số định danh");
                     }
                     var getUser = db.Users.Where(x => x.UserGmail == user.UserGmail).FirstOrDefault();
                     if (getUser != null)
-                        return Conflict("Email đã tồn tại.");
+                        return Conflict("Email đã tồn tại");
                     try
                     {
                         if (!StringFormater.IsOver18(user.DateOfBirth))
                         {
-                            return Conflict("Người dùng chưa đủ 18 tuổi.");
+                            return Conflict("Người dùng chưa đủ 18 tuổi");
                         }
                     }
                     catch
                     {
-                        return BadRequest("Sai định dạng ngày sinh.");
+                        return BadRequest("Sai định dạng ngày sinh");
                     }
 
 
@@ -81,7 +101,7 @@ namespace BookingHotelAPI.Controllers
                         return Conflict("Số định danh đã tồn tại.");
 
                     if (!StringFormater.PasswordIsValid(user.UserPassword))
-                        return Conflict("Mật khẩu phải lớn hơn 8 chữ số bao gồm kí tự hoa, kí tự số và kí tự đặc biệt.");
+                        return Conflict("Mật khẩu phải lớn hơn 8 chữ số bao gồm kí tự hoa, kí tự số và kí tự đặc biệt");
 
                     db.Users.Add(user);
                     db.SaveChanges();
