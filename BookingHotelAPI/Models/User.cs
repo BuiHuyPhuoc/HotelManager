@@ -23,25 +23,31 @@ public partial class User
 
     public class DateOnlyJsonConverter : JsonConverter<DateOnly>
     {
-        private const string Format = "yyyy-MM-dd";
+        private static readonly string[] Formats = { "yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy" };
 
         public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = reader.GetString();
 
-            if (DateOnly.TryParseExact(value, Format, null, System.Globalization.DateTimeStyles.None, out DateOnly result))
+            if (value == null)
             {
-                return result;
+                throw new JsonException("Invalid date format. Date string is null.");
             }
-            else
+
+            foreach (var format in Formats)
             {
-                throw new JsonException($"Invalid date format. Expected format: {Format}");
+                if (DateOnly.TryParseExact(value, format, null, System.Globalization.DateTimeStyles.None, out DateOnly result))
+                {
+                    return result;
+                }
             }
+
+            throw new JsonException($"Invalid date format. Expected formats: {string.Join(" or ", Formats)}");
         }
 
         public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString(Format));
+            writer.WriteStringValue(value.ToString(Formats[0])); // Default to first format for writing
         }
     }
 }

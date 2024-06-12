@@ -135,3 +135,4 @@ D:\APP DEVELOP\Hotel Manager\BookingHotelAPI\obj\Debug\net8.0\BookingHotelAPI.pd
 D:\APP DEVELOP\Hotel Manager\BookingHotelAPI\obj\Debug\net8.0\BookingHotelAPI.genruntimeconfig.cache
 D:\APP DEVELOP\Hotel Manager\BookingHotelAPI\obj\Debug\net8.0\ref\BookingHotelAPI.dll
 D:\APP DEVELOP\Hotel Manager\BookingHotelAPI\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\APP DEVELOP\Hotel Manager\BookingHotelAPI\obj\Debug\net8.0\BookingHotelAPI.sourcelink.json

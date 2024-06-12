@@ -7,6 +7,12 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Account Page"),),
+      body: GestureDetector(
+        child: Text("Logout"),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
     );
   }
 }

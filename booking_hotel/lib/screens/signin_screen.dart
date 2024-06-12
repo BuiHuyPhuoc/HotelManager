@@ -1,3 +1,6 @@
+import 'package:booking_hotel/class/user.dart';
+import 'package:booking_hotel/components/CustomToast.dart';
+import 'package:booking_hotel/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
 import 'package:booking_hotel/theme/theme.dart';
@@ -14,9 +17,19 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+  TextEditingController emailInputField = TextEditingController();
+  TextEditingController passwordInputField = TextEditingController();
+
+  @override
+  void dispose() {
+    emailInputField.dispose();
+    passwordInputField.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return  CustomScaffold(
       child: Column(
         children: [
           const Expanded(
@@ -53,6 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       height: 40.0,
                     ),
                     TextFormField(
+                      controller: emailInputField,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter Email';
@@ -65,6 +79,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         hintStyle: const TextStyle(
                           color: Colors.black26,
                         ),
+                        
                         border: OutlineInputBorder(
                           borderSide: const BorderSide(
                             color: Colors.black12,
@@ -83,6 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       height: 25.0,
                     ),
                     TextFormField(
+                      controller: passwordInputField,
                       obscureText: true,
                       obscuringCharacter: '*',
                       validator: (value) {
@@ -145,7 +161,6 @@ class _SignInScreenState extends State<SignInScreen> {
                               color: lightColorScheme.primary,
                             ),
                           ),
-                          
                         ),
                       ],
                     ),
@@ -155,20 +170,29 @@ class _SignInScreenState extends State<SignInScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if (_formSignInKey.currentState!.validate() &&
-                              rememberPassword) {
+                        onPressed: () async {
+                          if (_formSignInKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Processing Data'),
                               ),
                             );
-                          } 
-                          else if (!rememberPassword) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Please agree to the processing of personal data')),
+                            User? loggedInUser = await loginUser(
+                                emailInputField.text, passwordInputField.text);
+                            if (loggedInUser == null) {
+                              WarningToast(
+                                      context: context,
+                                      content:
+                                          "Sai tên đăng nhập hoặc mật khẩu")
+                                  .ShowToast();
+                              return;
+                            }
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (e) => const HomeLayout(),
+                              ),
                             );
                           }
                         },
