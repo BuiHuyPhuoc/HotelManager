@@ -1,9 +1,8 @@
 import 'package:booking_hotel/class/api_respond.dart';
-import 'package:booking_hotel/class/user.dart';
+import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
-import 'package:booking_hotel/theme/theme.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
 
 import 'package:icons_plus/icons_plus.dart';
@@ -54,8 +53,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             flex: 7,
             child: Container(
               padding: const EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 20.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
@@ -73,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         style: TextStyle(
                           fontSize: 30.0,
                           fontWeight: FontWeight.w900,
-                          color: lightColorScheme.primary,
+                          //color: lightColorScheme.onSurface,
                         ),
                       ),
 
@@ -91,18 +90,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           label: const Text('Họ tên'),
                           hintText: 'Nhập họ tên',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -124,18 +123,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           label: const Text('Email'),
                           hintText: 'Nhập email',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -156,14 +155,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               : DateFormat('dd/MM/yyyy')
                                   .format(_selectedDate!), // Format the date
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -199,18 +198,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           label: const Text('Số điện thoại'),
                           hintText: 'Nhập số điện thoại ...',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -234,18 +233,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           label: const Text('Số CCCD'),
                           hintText: 'Nhập số CCCD',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -269,18 +268,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           label: const Text('Mật khẩu'),
                           hintText: 'Nhập mật khẩu.',
-                          hintStyle: const TextStyle(
-                            color: Colors.black26,
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12, // Default border color
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.outline, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -301,19 +300,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 agreePersonalData = value!;
                               });
                             },
-                            activeColor: lightColorScheme.primary,
+                            activeColor: Theme.of(context).colorScheme.outline,
                           ),
                           const Text(
                             'Tôi đồng ý với ',
-                            style: TextStyle(
-                              color: Colors.black45,
-                            ),
                           ),
                           Text(
                             'các điều khoản và dịch vụ.',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: lightColorScheme.primary,
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                         ],
@@ -327,6 +323,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll<Color>(Theme.of(context).colorScheme.onSurface)
+                          ),
                           onPressed: () async {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
@@ -370,7 +369,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return;
                             }
                           },
-                          child: const Text('Sign up'),
+                          child: Text('Sign up', style: TextStyle(color: Theme.of(context).colorScheme.surface),),
                         ),
                       ),
 
@@ -395,9 +394,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             child: Text(
                               'Sign up with',
-                              style: TextStyle(
-                                color: Colors.black45,
-                              ),
                             ),
                           ),
                           Expanded(
@@ -431,9 +427,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         children: [
                           const Text(
                             'Already have an account? ',
-                            style: TextStyle(
-                              color: Colors.black45,
-                            ),
                           ),
                           GestureDetector(
                             onTap: () {
@@ -448,7 +441,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               'Sign in',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: lightColorScheme.primary,
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 18
                               ),
                             ),
                           ),

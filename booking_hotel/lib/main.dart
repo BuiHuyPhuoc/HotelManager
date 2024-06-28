@@ -1,108 +1,81 @@
-import 'package:booking_hotel/class/hotel.dart';
-import 'package:booking_hotel/screens/welcome_screen.dart';
+//import 'package:booking_hotel/booking_page.dart';
+import 'package:booking_hotel/class/tuple.dart';
+import 'package:booking_hotel/model/hotel.dart';
+import 'package:booking_hotel/model/room.dart';
+import 'package:booking_hotel/screens/ProfilePage/account_page.dart';
+import 'package:booking_hotel/theme/theme_provider.dart';
+//import 'package:booking_hotel/room_detail.dart';
+import 'package:booking_hotel/widgets/promo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 
- class MyHttpOverrides extends HttpOverrides{
+import 'package:provider/provider.dart';
+
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
+
 void main() {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: WelcomeScreen(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp()
+    )
+  );
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Room> rooms = [];
-    rooms.add(Room(
-        name: "ABC",
-        place: "Vũng Tàu",
-        address: "Thành phố Vũng Tàu",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel.jpg'));
-    rooms.add(Room(
-        name: "Helto",
-        place: "Sapa",
-        address: "Sapa",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel2.jpg'));
-    rooms.add(Room(
-        name: "Alto",
-        place: "Đà Nẵng",
-        address: "Thành phố Đà Nẵng",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel.jpg'));
-    rooms.add(Room(
-        name: "Nota",
-        place: "Huế",
-        address: "Thành phố Huế",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel2.jpg'));
-    rooms.add(Room(
-        name: "YYY",
-        place: "Phú Quốc",
-        address: "Thành phố Phú Quốc",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel.jpg'));
-    List<Widget> roomCards = [];
-    for (int i = 0; i < rooms.length; i++) {
-      roomCards.add(promoCard(rooms[i]));
-    }
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AccountPage(),
+      theme: Provider.of<ThemeProvider>(context).themeData,
+    );
+  }
+}
 
-    rooms = [];
-    rooms.add(Room(
-        name: "Alto",
-        place: "Đà Nẵng",
-        address: "Thành phố Đà Nẵng",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel2.jpg'));
-    rooms.add(Room(
-        name: "Nota",
-        place: "Huế",
-        address: "Thành phố Huế",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel.jpg'));
-    rooms.add(Room(
-        name: "YYY",
-        place: "Phú Quốc",
-        address: "Thành phố Phú Quốc",
-        description: "Thoáng mát sạch sẽ",
-        numBed: 4,
-        price: 500,
-        image: 'hotel2.jpg'));
-    List<Widget> roomIsSellingCards = [];
-    for (int i = 0; i < rooms.length; i++) {
-      roomIsSellingCards.add(promoCard(rooms[i]));
-    }
 
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  
+  late Future<List<Tuple<Room, int>>> _defaultRooms;
+  late Future<List<Tuple<Room, int>>> _saleRooms;
+  List<String> _cities = [];
+  void getData() async {
+    _defaultRooms = getRoomsDefault();
+    _saleRooms = getSaleRooms();
+    _cities = await getCities();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
@@ -127,13 +100,12 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       "Ở Mọi Nơi",
-                      style: TextStyle(fontSize: 30, color: Colors.black),
+                      style: TextStyle(fontSize: 30),
                     ),
                     SizedBox(height: 5),
                     Text(
                       "Mà Bạn Tới!",
                       style: TextStyle(
-                          color: Colors.black,
                           fontSize: 36,
                           fontWeight: FontWeight.bold),
                     )
@@ -154,8 +126,8 @@ class HomePage extends StatelessWidget {
                         height: 60,
                         padding: EdgeInsets.all(6),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black, width: 2.0),
+                          color: Theme.of(context).colorScheme.surface,
+                          border: Border.all(color: Theme.of(context).colorScheme.outline, width: 2.0),
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: TextField(
@@ -164,7 +136,7 @@ class HomePage extends StatelessWidget {
                               hintText: 'Tìm kiếm địa điểm',
                               prefixIcon: Icon(
                                 Icons.search,
-                                color: Colors.black,
+                                //color: Colors.black,
                               )),
                           onSubmitted: (String value) {
                             // Thực hiện tìm kiếm khi nhấn "Enter"
@@ -179,25 +151,28 @@ class HomePage extends StatelessWidget {
                 height: 10,
               ),
               Container(
-                height: 50,
-                child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      placeButton("Tất cả", true),
-                      placeButton("Đà Nẵng", false),
-                      placeButton("Sapa", false),
-                      placeButton("Huế", false),
-                      placeButton("Phú Quốc", false),
-                      placeButton("Vũng Tàu", false)
-                    ]),
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _cities.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return placeButton(_cities[index], false);
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "Sales",
+                "Các phòng hiện có",
                 style: GoogleFonts.montserrat(
-                    color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -207,18 +182,43 @@ class HomePage extends StatelessWidget {
               Container(
                 //padding: EdgeInsets.all(10),
                 height: 300,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: roomCards,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FutureBuilder<List<Tuple<Room, int>>>(
+                        future: _defaultRooms,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (snapshot.hasData) {
+                            List<Tuple<Room, int>> room = snapshot.data!;
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: false,
+                              itemCount: room.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return PromoCard(room[index]);
+                              },
+                            );
+                          } else {
+                            return Center(child: Text('Room not found'));
+                          }
+                        },
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                "Đánh giá tốt",
+                "Các phòng đang giảm giá",
                 style: GoogleFonts.montserrat(
-                    color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
               ),
@@ -228,11 +228,58 @@ class HomePage extends StatelessWidget {
               Container(
                 //padding: EdgeInsets.all(10),
                 height: 300,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: roomIsSellingCards,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: FutureBuilder<List<Tuple<Room, int>>>(
+                        future: _saleRooms,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text('Error: ${snapshot.error}'));
+                          } else if (snapshot.hasData) {
+                            List<Tuple<Room, int>> room = snapshot.data!;
+                            return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: false,
+                              itemCount: room.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return PromoCard(room[index]);
+                              },
+                            );
+                          } else {
+                            return Center(child: Text('Room not found'));
+                          }
+                        },
+                      ),
+                    )
+                  ],
                 ),
               ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Text(
+              //   "Đánh giá tốt",
+              //   style: GoogleFonts.montserrat(
+              //       color: Colors.black,
+              //       fontSize: 20,
+              //       fontWeight: FontWeight.bold),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Container(
+              //   //padding: EdgeInsets.all(10),
+              //   height: 300,
+              //   child: ListView(
+              //     scrollDirection: Axis.horizontal,
+              //     children: roomIsSellingCards,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -257,6 +304,51 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  // List<Widget> ShowSaleRooms() {
+  //   return (_saleRooms != null) ? [
+  //     Text(
+  //       "Các phòng đang giảm giá",
+  //       style: GoogleFonts.montserrat(
+  //           color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+  //     ),
+  //     SizedBox(
+  //       height: 10,
+  //     ),
+  //     Container(
+  //       //padding: EdgeInsets.all(10),
+  //       height: 300,
+  //       child: Row(
+  //         children: [
+  //           Expanded(
+  //             child: FutureBuilder<List<Room>>(
+  //               future: _saleRooms,
+  //               builder: (context, snapshot) {
+  //                 if (snapshot.connectionState == ConnectionState.waiting) {
+  //                   return Center(child: CircularProgressIndicator());
+  //                 } else if (snapshot.hasError) {
+  //                   return Center(child: Text('Error: ${snapshot.error}'));
+  //                 } else if (snapshot.hasData) {
+  //                   List<Room> room = snapshot.data!;
+  //                   return ListView.builder(
+  //                     scrollDirection: Axis.horizontal,
+  //                     shrinkWrap: false,
+  //                     itemCount: room.length,
+  //                     itemBuilder: (BuildContext context, int index) {
+  //                       return PromoCard(room[index]);
+  //                     },
+  //                   );
+  //                 } else {
+  //                   return Center(child: Text('Room not found'));
+  //                 }
+  //               },
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     )
+  //   ] : [];
+  // }
+
   Widget placeButton_picked(String place) {
     return Container(
       width: 100,
@@ -271,66 +363,6 @@ class HomePage extends StatelessWidget {
         place,
         style: TextStyle(color: Colors.white, fontSize: 16),
       )),
-    );
-  }
-
-  Widget promoCard(Room room) {
-    return AspectRatio(
-      aspectRatio: 2.6 / 3,
-      child: Container(
-          margin: EdgeInsets.only(right: 15.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('images/' + room.image))),
-          child: Container(
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(begin: Alignment.bottomRight, stops: [
-                  0.1,
-                  0.9
-                ], colors: [
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.1)
-                ])),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                ),
-                Expanded(
-                    child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        room.name,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        room.place,
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      )
-                    ],
-                  ),
-                ))
-              ],
-            ),
-          )),
     );
   }
 }

@@ -1,4 +1,5 @@
 
+using BookingHotelAPI.Class;
 using static BookingHotelAPI.Models.User;
 
 namespace BookingHotelAPI
@@ -15,6 +16,7 @@ namespace BookingHotelAPI
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+                options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

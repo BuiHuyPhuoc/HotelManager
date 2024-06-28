@@ -13,9 +13,15 @@ public partial class Room
 
     public decimal? Price { get; set; }
 
+    public decimal? DiscountPrice { get; set; }
+
     public string? RoomImage { get; set; }
 
     public int? HotelId { get; set; }
 
     public bool? RoomValid { get; set; }
+
+    public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
 }
