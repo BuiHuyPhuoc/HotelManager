@@ -85,9 +85,12 @@ namespace BookingHotelAPI.Controllers
                         return Conflict("Email đã tồn tại");
                     try
                     {
-                        if (!StringFormater.IsOver18(user.DateOfBirth))
+                        if (user.DateOfBirth is not null)
                         {
-                            return Conflict("Người dùng chưa đủ 18 tuổi");
+                            if (!StringFormater.IsOver18((DateTime)user.DateOfBirth))
+                            {
+                                return Conflict("Người dùng chưa đủ 18 tuổi");
+                            }
                         }
                     }
                     catch
@@ -105,7 +108,7 @@ namespace BookingHotelAPI.Controllers
 
                     db.Users.Add(user);
                     db.SaveChanges();
-                    return Ok("Register account success.");
+                    return Ok("Tạo tài khoản thành công.");
                 }
             }
             catch (Exception ex)

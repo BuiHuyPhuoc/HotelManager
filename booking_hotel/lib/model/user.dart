@@ -32,6 +32,32 @@ class User {
       userIdcard: json['userIdcard'],
     );
   }
+  factory User.fromJsonString(Map<String, dynamic> json) {
+    return User(
+      userId: json['userId'],
+      userGmail: json['userGmail'],
+      userPassword: json['userPassword'],
+      userName: json['userName'],
+      dateOfBirth: json['dateOfBirth'],
+      userPhone: json['userPhone'],
+      userIdcard: json['userIdcard'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': userId,
+      'userGmail': userGmail,
+      'userPassword': userPassword,
+      'userName': userName,
+      'dateOfBirth': dateOfBirth,
+      'userPhone': userPhone,
+      'userIdcard': userIdcard,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
 }
 
 Future<User?> loginUser(String userGmail, String userPassword) async {
@@ -75,12 +101,6 @@ Future<ApiResponse> createUser(User? user) async {
   } else {
     String message = json.decode(json.encode(response.body));
 
-    if (response.statusCode == 400) {
-      return ApiResponse(status: false, message: '$message');
-    } else if (response.statusCode == 409) {
-      return ApiResponse(status: false, message: '$message');
-    } else {
-      return ApiResponse(status: false, message: '$message');
-    }
+    return ApiResponse(status: false, message: '$message');
   }
 }

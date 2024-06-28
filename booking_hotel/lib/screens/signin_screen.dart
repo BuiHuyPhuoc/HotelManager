@@ -1,9 +1,9 @@
-import 'package:booking_hotel/class/user.dart';
+import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/home_layout.dart';
+import 'package:booking_hotel/screens/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
-import 'package:booking_hotel/theme/theme.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
 import 'package:icons_plus/icons_plus.dart';
 
@@ -41,8 +41,8 @@ class _SignInScreenState extends State<SignInScreen> {
             flex: 7,
             child: Container(
               padding: const EdgeInsets.fromLTRB(25.0, 50.0, 25.0, 20.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
@@ -59,7 +59,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w900,
-                        color: lightColorScheme.primary,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                     const SizedBox(
@@ -77,18 +77,18 @@ class _SignInScreenState extends State<SignInScreen> {
                         label: const Text('Email'),
                         hintText: 'Enter Email',
                         hintStyle: const TextStyle(
-                          color: Colors.black26,
+                          //color: Colors.black,
                         ),
                         
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.black12,
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.black12,
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -111,17 +111,17 @@ class _SignInScreenState extends State<SignInScreen> {
                         label: const Text('Password'),
                         hintText: 'Enter Password',
                         hintStyle: const TextStyle(
-                          color: Colors.black26,
+                          //color: Colors.black26,
                         ),
                         border: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.black12,
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                            color: Colors.black12,
+                          borderSide:  BorderSide(
+                            color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -142,12 +142,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                   rememberPassword = value!;
                                 });
                               },
-                              activeColor: lightColorScheme.primary,
+                              activeColor: Theme.of(context).colorScheme.outline,
                             ),
                             const Text(
                               'Remember me',
                               style: TextStyle(
-                                color: Colors.black45,
+                                //color: Colors.black45,
                               ),
                             )
                           ],
@@ -158,7 +158,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             'Forget password?',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: lightColorScheme.primary,
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
                         ),
@@ -172,13 +172,15 @@ class _SignInScreenState extends State<SignInScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if (_formSignInKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Processing Data'),
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text('Processing Data'),
+                            //   ),
+                            // );
+
                             User? loggedInUser = await loginUser(
                                 emailInputField.text, passwordInputField.text);
+                                
                             if (loggedInUser == null) {
                               WarningToast(
                                       context: context,
@@ -187,7 +189,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   .ShowToast();
                               return;
                             }
-
+                            await UserPreferences.saveUser(loggedInUser);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -219,7 +221,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: Text(
                             'Sign in with',
                             style: TextStyle(
-                              color: Colors.black45,
+                              //color: Colors.black45,
                             ),
                           ),
                         ),
@@ -253,7 +255,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         const Text(
                           'Don\'t have an account? ',
                           style: TextStyle(
-                            color: Colors.black45,
+                            //color: Colors.black45,
                           ),
                         ),
                         GestureDetector(
@@ -268,8 +270,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: Text(
                             'Sign up',
                             style: TextStyle(
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: lightColorScheme.primary,
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                         ),

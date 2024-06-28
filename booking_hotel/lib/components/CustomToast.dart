@@ -150,3 +150,39 @@ class SuccessToast extends CustomToast {
     );
   }
 }
+
+class NotifyToast extends CustomToast {
+  NotifyToast({
+    Key? key,
+    required BuildContext context,
+    String content = "",
+    Duration duration = const Duration(seconds: 2),
+  }) : super(context: context, content: content, duration: duration);
+
+  @override
+  Widget toastIcon() {
+    return Container(
+      child: Icon(
+        Icons.info,
+        color: Theme.of(context).colorScheme.onSurface,
+        size: 28.0,
+      ),
+    );
+  }
+
+  @override
+  BoxDecoration toastDecoration() {
+    return BoxDecoration(
+      color: Theme.of(context).colorScheme.surface,
+      borderRadius: BorderRadius.circular(10),
+    );
+  }
+
+  @override
+  Widget toastContent() {
+    return Text(
+      content,
+      style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
+    );
+  }
+}

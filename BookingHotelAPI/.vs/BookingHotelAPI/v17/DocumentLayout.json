@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\bookingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\booking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 765,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,41 +50,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "User.cs",
-              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAswBkAAABVAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T06:16:10.21Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAFUAAAAAAAAAAADwv2kAAAAnAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAowEYAAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:32:43.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-26T03:35:38.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAArwCQAAAAMAAAA",
+              "DocumentIndex": 3,
+              "Title": "Favorite.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Favorite.cs",
+              "RelativeDocumentMoniker": "Models\\Favorite.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Favorite.cs",
+              "RelativeToolTip": "Models\\Favorite.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:32:05.532Z"
+              "WhenOpened": "2024-06-26T03:30:48.13Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RoomController.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\RoomController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RoomController.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\RoomController.cs",
+              "RelativeToolTip": "Controllers\\RoomController.cs",
+              "ViewState": "AQIAANAAAAAAAAAAAAAqwNwAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-25T17:12:48.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Booking.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Booking.cs",
+              "RelativeDocumentMoniker": "Models\\Booking.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Booking.cs",
+              "RelativeToolTip": "Models\\Booking.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAA5wAYAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T06:38:30.312Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BookingController.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\BookingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\BookingController.cs",
+              "RelativeToolTip": "Controllers\\BookingController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T06:36:48.628Z",
+              "EditorCaption": ""
             }
           ]
         }

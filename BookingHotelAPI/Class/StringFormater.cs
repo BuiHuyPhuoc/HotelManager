@@ -35,28 +35,24 @@ namespace BookingHotelAPI.Class
         }
 
 
-        public static bool IsOver18(DateOnly? date)
+        public static bool IsOver18(DateTime date)
         {
-            if (date.HasValue)
-            {
-                var today = DateOnly.FromDateTime(DateTime.Today);
-                var age = today.Year - date.Value.Year;
+            // Lấy ngày hiện tại
+            DateTime currentDate = DateTime.Now;
 
-                // Kiểm tra nếu ngày sinh nhật của người đó trong năm nay chưa đến
-                if (date.Value.AddYears(age) > today)
-                {
-                    age--;
-                }
+            // Tính toán số tuổi
+            int age = currentDate.Year - date.Year;
 
-                return age >= 18;
-            }
-            else
+            // Kiểm tra nếu ngày sinh chưa đến trong năm hiện tại, trừ đi 1 năm
+            if (currentDate < date.AddYears(age))
             {
-                // Nếu DateOfBirth là null, bạn có thể quyết định trả về false hoặc ném một ngoại lệ
-                // return false;
-                throw new ArgumentNullException("DateOfBirth", "Date of Birth cannot be null.");
+                age--;
             }
+
+            // Trả về true nếu tuổi lớn hơn hoặc bằng 18, ngược lại trả về false
+            return age >= 18;
         }
+
 
         public static bool IDCardIsValid(string idCard)
         {
