@@ -32,7 +32,12 @@ namespace BookingHotelAPI.Controllers
                 Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
             });
         }
-    }
 
-    
+        [HttpGet]
+        [Route("GetHotels")]
+        public IActionResult GetHotels() {
+            var hotels = db.Hotels.ToList();
+            return Ok(hotels);
+        }
+    }
 }

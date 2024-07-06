@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:booking_hotel/class/enum_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -16,8 +17,6 @@ extension ImageTypeExtension on String {
     }
   }
 }
-
-enum ImageType { svg, png, network, file, unknown }
 
 // ignore: must_be_immutable
 class CustomImageView extends StatelessWidget {

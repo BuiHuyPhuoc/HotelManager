@@ -50,6 +50,16 @@ namespace BookingHotelAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetUserByEmail")]
+        public IActionResult GetUserByEmail(string email)
+        {
+            var getUser = db.Users
+                            .Where(x => x.UserGmail == email)
+                            .FirstOrDefault();
+            return Ok(getUser);
+        }
+
 
         [HttpPost]
         [Route("UserRegister")]

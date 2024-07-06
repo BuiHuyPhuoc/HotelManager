@@ -1,8 +1,9 @@
+import 'package:booking_hotel/screens/HomePage/home_page.dart';
 import 'package:booking_hotel/screens/ProfilePage/account_page.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/screens/FavoritePage/favorite_page.dart';
-import 'package:booking_hotel/main.dart';
-import 'package:booking_hotel/trip_page.dart';
+import 'package:booking_hotel/screens/AllRoomPage/all_room_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,10 +17,11 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   double sizeIcon = 30;
   int _currentIndex = 0;
+  final user = FirebaseAuth.instance.currentUser;
   List<Widget> body = const [
     HomePage(),
+    AllRoomPage(),
     FavoritePage(),
-    TripPage(),
     AccountPage()
   ];
   @override
@@ -31,7 +33,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         body: body[_currentIndex],
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Theme.of(context).colorScheme.surface,
             boxShadow: [
               BoxShadow(
                 color: Theme.of(context).colorScheme.shadow,
@@ -43,7 +45,9 @@ class _HomeLayoutState extends State<HomeLayout> {
           ),
           child: BottomNavigationBar(
             currentIndex: _currentIndex,
-            unselectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor:
+                Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+            selectedItemColor: Theme.of(context).colorScheme.onSurface,
             selectedFontSize: 14.0,
             unselectedFontSize: 12.0,
             type: BottomNavigationBarType.fixed,
@@ -52,6 +56,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 _currentIndex = newIndex;
               });
             },
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
             items: [
               BottomNavigationBarItem(
                 icon: Icon(
@@ -63,12 +68,24 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: 'Trang chủ',
+                label: "Trang chủ",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.apartment,
+                  color: _currentIndex == 1
+                      ? Theme.of(context).colorScheme.onSurface
+                      : Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.3),
+                ),
+                label: 'Tất cả',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite,
-                  color: _currentIndex == 1
+                  color: _currentIndex == 2
                       ? Theme.of(context).colorScheme.onSurface
                       : Theme.of(context)
                           .colorScheme
@@ -79,19 +96,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.trip_origin,
-                  color: _currentIndex == 2
-                      ? Theme.of(context).colorScheme.onSurface
-                      : Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.3),
-                ),
-                label: 'Trip',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
+                  Icons.settings,
                   color: _currentIndex == 3
                       ? Theme.of(context).colorScheme.onSurface
                       : Theme.of(context)
@@ -99,7 +104,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: 'Tài khoản',
+                label: 'Cài đặt',
               ),
             ],
           ),

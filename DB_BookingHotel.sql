@@ -72,6 +72,18 @@ CREATE TABLE [Order] (
 );
 GO
 
+CREATE TABLE OrderInfo (
+    OrderId BIGINT PRIMARY KEY,
+    Amount BIGINT NOT NULL,
+    OrderDesc NVARCHAR(255) NOT NULL,
+    CreatedDate DATETIME NOT NULL,
+    Status NVARCHAR(50) NOT NULL,
+    PaymentTranId BIGINT NOT NULL,
+    BankCode NVARCHAR(50) NOT NULL,
+    PayStatus NVARCHAR(50) NOT NULL
+);
+go
+
 CREATE TABLE [Favorite] (
 	[RoomID] int references [Room]([RoomID]),
 	[UserID] int references [User]([UserID]),
@@ -90,7 +102,7 @@ insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [Use
 insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('gknatt7@cam.ac.uk', '12345', 'Gloria Knatt', '2023-10-04', '3661940507', '4041371800');
 insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('cdendle8@japanpost.jp', '12345', 'Clarette Dendle', '2024-03-13', '5432004346', '4017957548');
 insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('jbinny9@stumbleupon.com', '12345', 'Janet Binny', '2023-08-10', '3521854977', '4041373880');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('test@stumbleupon.com', 'Test2k3.', 'Janet Test', '2003-08-10', '3521854967', '4042373880');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('test@gmail.com', 'Test2k3.', 'Janet Test', '2003-08-10', '3521854967', '4042373880');
 
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Isoniazid', N'0452 Londonderry Drive', N'Yufa', '9592821236');
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Enalapril Maleate', N'7827 Weeping Birch Road', N'Benito Juarez', '8857456362');
@@ -131,131 +143,18 @@ insert into [Favorite] values (3, 3, getdate())
 insert into [Favorite] values (4, 5, getdate())
 insert into [Favorite] values (4, 6, getdate())
 insert into [Favorite] values (4, 7, getdate())
- 
-select * from room
-
-SELECT h.HotelCity, h.HotelName, h.HotelAddress, h.HotelPhone,  r.roomId, r.roomDescription	, r.numberPeople, r.price, r.discountPrice, r.roomImage, r.hotelId, r.roomValid  
-FROM Hotel h
-inner join (select * from Room where Room.RoomId = 1) as r
-on r.HotelId = h.HotelId
 
 update Room
 set DiscountPrice = 200000
 where RoomID = 1
 
-select * from Booking
-
-Select * from [Favorite]
-
--- Lấy ra các phòng và lượt thích
-SELECT 
-    r.RoomID,
-    r.RoomDescription,
-    r.NumberPeople,
-    r.Price,
-    r.DiscountPrice,
-    r.RoomImage,
-    r.HotelID,
-    r.RoomValid,
-    COUNT(f.UserID) AS NumberOfLikes
-FROM 
-    Room r
-LEFT JOIN 
-    Favorite f ON r.RoomID = f.RoomID
-GROUP BY 
-    r.RoomID,
-    r.RoomDescription,
-    r.NumberPeople,
-    r.Price,
-    r.DiscountPrice,
-    r.RoomImage,
-    r.HotelID,
-    r.RoomValid;
-
--- Mỗi hotel lấy ra một Room có nhiều lượt like nhất
-WITH RankedRooms AS (
-    SELECT 
-        r.RoomID,
-        r.HotelID,
-        r.RoomDescription,
-        r.NumberPeople,
-        r.Price,
-        r.DiscountPrice,
-        r.RoomImage,
-        r.RoomValid,
-        COUNT(f.UserID) AS NumberOfLikes,
-        ROW_NUMBER() OVER(PARTITION BY r.HotelID ORDER BY COUNT(f.UserID) DESC) AS RoomRank
-    FROM 
-        Room r
-    LEFT JOIN 
-        Favorite f ON r.RoomID = f.RoomID
-    GROUP BY 
-        r.RoomID,
-        r.HotelID,
-        r.RoomDescription,
-        r.NumberPeople,
-        r.Price,
-        r.DiscountPrice,
-        r.RoomImage,
-        r.RoomValid
-)
-SELECT 
-    RoomID,
-    HotelID,
-    RoomDescription,
-    NumberPeople,
-    Price,
-    DiscountPrice,
-    RoomImage,
-    RoomValid,
-    NumberOfLikes
-FROM 
-    RankedRooms
-WHERE 
-    RoomRank = 1;
-
-select r.RoomID, h.HotelID, COUNT(f.RoomID)
-from Room r, Favorite f, Hotel h
-where r.RoomID = f.RoomID
-and r.HotelID = h.HotelID
-group by r.RoomID, h.HotelID, f.RoomID;
-
-SELECT r.RoomID, h.HotelID, COUNT(f.RoomID) AS LikeCount
-FROM Room r
-LEFT JOIN Favorite f ON r.RoomID = f.RoomID
-JOIN Hotel h ON r.HotelID = h.HotelID
-GROUP BY r.RoomID, h.HotelID;
-
-WITH RankedRooms AS (
-    SELECT 
-        r.RoomID,
-    r.HotelID,
-    r.RoomDescription,
-    r.NumberPeople,
-    r.Price,
-    r.DiscountPrice,
-    r.RoomImage,
-    r.RoomValid,
-        COUNT(f.RoomID) AS LikeCount,
-        ROW_NUMBER() OVER(PARTITION BY r.HotelID ORDER BY COUNT(f.RoomID) DESC) AS Rank
-    FROM Room r
-    LEFT JOIN Favorite f ON r.RoomID = f.RoomID
-    GROUP BY r.RoomID,
-    r.HotelID,
-    r.RoomDescription,
-    r.NumberPeople,
-    r.Price,
-    r.DiscountPrice,
-    r.RoomImage,
-    r.RoomValid
-)
-SELECT RoomID,
-    HotelID,
-    RoomDescription,
-    NumberPeople,
-    Price,
-    DiscountPrice,
-    RoomImage,
-    RoomValid, LikeCount
-FROM RankedRooms
-WHERE Rank = 1;
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 1, getdate())
+insert into [Booking] values ('20240706', '20240707', N'Chưa thanh toán', 0, 200000, 200000, 11, 1, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 2, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 3, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 4, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 5, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 6, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 7, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 8, getdate())
+insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 9, getdate())

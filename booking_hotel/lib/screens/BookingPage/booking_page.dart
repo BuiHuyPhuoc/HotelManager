@@ -1,12 +1,17 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+import 'dart:collection';
 import 'package:booking_hotel/class/api_respond.dart';
+import 'package:booking_hotel/class/enum_variable.dart';
+import 'package:booking_hotel/class/event.dart';
+import 'package:booking_hotel/class/money_format.dart';
 import 'package:booking_hotel/model/booking.dart';
 import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/class/shared_preferences.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
+import 'package:booking_hotel/screens/BookingPage/success_page.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,26 +29,120 @@ class BookingPage extends StatefulWidget {
 class _BookingPageState extends State<BookingPage> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  //DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   late Future<Room> room;
   late Room roominfo;
   late User? loggedInUser = null;
+  late List<Booking> _bookedList = [];
+  final events = LinkedHashMap<DateTime, List<BookingDate>>(
+    equals: isSameDay,
+    hashCode: getHashCode,
+  );
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   void getData() async {
     room = getRoomById(widget.idRoom);
     room.then((data) {
       roominfo = data;
     });
     loggedInUser = await UserPreferences.getUser();
+    _bookedList = await getBookingById(widget.idRoom);
+
+    for (var item in _bookedList) {
+      DateTime startDate = DateTime.parse(item.startDate);
+      DateTime endDate = DateTime.parse(item.endDate);
+      List<BookingDate> _listDayAdd =
+          _listBookingDateFromRange(startDate, endDate);
+
+      for (var date in _listDayAdd) {
+        if (events.containsKey(date.dateTime)) {
+          events[date.dateTime]!.add(date);
+        } else {
+          events[date.dateTime] = [date];
+        }
+      }
+    }
     setState(() {});
   }
 
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = _focusedDay;
-    getData();
+  List<BookingDate> _getBookingDate(DateTime day) {
+    return events[day] ?? [];
+  }
+
+  List<DateTime> daysInRange(DateTime first, DateTime last) {
+    final dayCount = last.difference(first).inDays + 1;
+    return List.generate(
+      dayCount,
+      (index) => DateTime.utc(first.year, first.month, first.day + index),
+    );
+  }
+
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
+      _focusedDay = focusedDay;
+      _rangeStart = start;
+      _rangeEnd = end;
+    });
+  }
+
+  Widget _onRangeDecoration(DateTime date) {
+    return Center(
+      child: Container(
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Text(
+            '${date.day}',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _defaultDecoration(DateTime date) {
+    List<BookingDate> _getEvents = events[date] ?? [];
+    Color backgroundColor = Colors.white;
+    Color textColor = Colors.black;
+    for (var event in _getEvents) {
+      if (event.type == BookingDateType.Allday || _getEvents.length == 2) {
+        backgroundColor = Colors.grey.withOpacity(0.8);
+        textColor = Colors.black;
+        break;
+      }
+      if (event.type == BookingDateType.Checkin) {
+        backgroundColor = Colors.yellowAccent;
+      }
+      if (event.type == BookingDateType.Checkout) {
+        backgroundColor = Colors.cyan;
+      }
+    }
+    return Center(
+      child: Container(
+        height: 30,
+        width: 30,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: Text(
+            '${date.day}',
+            style: TextStyle(color: textColor),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -53,11 +152,13 @@ class _BookingPageState extends State<BookingPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.surface,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back_ios,
-            //color: Colors.white,
             size: 20,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ),
@@ -78,7 +179,7 @@ class _BookingPageState extends State<BookingPage> {
                             "Thông Tin Đặt Phòng",
                             style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
-                                //color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 20),
                           ),
                         ),
@@ -96,25 +197,25 @@ class _BookingPageState extends State<BookingPage> {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          //width: MediaQuery.of(context).size.width - 70,
                           height: 300,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 4,
-                                offset: Offset(0, 3),
-                              ),
-                            ],
                           ),
                           child: TableCalendar(
                             headerStyle: HeaderStyle(
                               titleTextStyle: GoogleFonts.montserrat(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold),
+                              formatButtonVisible: false,
+                              leftChevronIcon: Icon(
+                                Icons.chevron_left,
+                                color: Colors.black,
+                              ),
+                              rightChevronIcon: Icon(
+                                Icons.chevron_right,
+                                color: Colors.black,
+                              ),
                             ),
                             daysOfWeekStyle: DaysOfWeekStyle(
                               weekdayStyle: TextStyle(
@@ -124,6 +225,7 @@ class _BookingPageState extends State<BookingPage> {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
+                            eventLoader: (date) => _getBookingDate(date),
                             rangeSelectionMode: RangeSelectionMode.toggledOn,
                             focusedDay: _focusedDay,
                             firstDay: DateTime.now(),
@@ -133,37 +235,53 @@ class _BookingPageState extends State<BookingPage> {
                             lastDay: DateTime.utc(2030, 3, 14),
                             calendarFormat: _calendarFormat,
                             daysOfWeekHeight: 20,
-                            rowHeight: 35,
+                            rowHeight: 36,
                             calendarStyle: CalendarStyle(
+                              markerDecoration: BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
                               defaultTextStyle: TextStyle(color: Colors.black),
                               todayDecoration: BoxDecoration(
-                                color: Color.fromARGB(255, 109, 109, 109),
+                                color: Color.fromARGB(255, 76, 76, 76),
                                 shape: BoxShape.circle,
                               ),
                               rangeStartDecoration: BoxDecoration(
                                 color: Colors.black,
                                 shape: BoxShape.circle,
                               ),
-                              rangeHighlightColor: Colors.grey,
+                              rangeHighlightColor:
+                                  const Color.fromARGB(255, 118, 118, 118),
                               rangeEndDecoration: BoxDecoration(
                                 color: Colors.black,
                                 shape: BoxShape.circle,
                               ),
                             ),
-                            onRangeSelected: (start, end, focusedDay) {
-                              setState(() {
-                                _selectedDay = null;
-                                _focusedDay = focusedDay;
-                                _rangeStart = start;
-                                _rangeEnd = end;
-                              });
+                            onRangeSelected: _onRangeSelected,
+                            onFormatChanged: (format) {
+                              if (_calendarFormat != format) {
+                                setState(() {
+                                  _calendarFormat = format;
+                                });
+                              }
                             },
-                            onDaySelected: (selectedDay, focusedDay) {
-                              setState(() {
-                                _selectedDay = selectedDay;
-                                _focusedDay = focusedDay;
-                              });
+                            onPageChanged: (focusedDay) {
+                              _focusedDay = focusedDay;
                             },
+                            calendarBuilders: CalendarBuilders(
+                              defaultBuilder: (context, date, events) {
+                                return _defaultDecoration(date);
+                              },
+                              rangeEndBuilder: (context, day, focusedDay) {
+                                return _onRangeDecoration(day);
+                              },
+                              rangeStartBuilder: (context, day, events) {
+                                return _onRangeDecoration(day);
+                              },
+                              todayBuilder: (context, date, events) {
+                                return _defaultDecoration(date);
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -202,14 +320,14 @@ class _BookingPageState extends State<BookingPage> {
             TextSpan(
               text: title,
               style: GoogleFonts.montserrat(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
             TextSpan(
               text: content,
               style: GoogleFonts.montserrat(
-                color: Theme.of(context).colorScheme.surface,
+                color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: 16,
               ),
             )
@@ -228,9 +346,10 @@ class _BookingPageState extends State<BookingPage> {
         } else if (snapshot.hasData) {
           Room room = snapshot.data!;
           return Container(
+            margin: EdgeInsets.only(top: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).colorScheme.onSurface),
+                color: Theme.of(context).colorScheme.primary),
             padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,24 +382,41 @@ class _BookingPageState extends State<BookingPage> {
                       ))
                     ]
                   : [
-                      Text(
-                        "Thông tin người đặt.",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.surface,
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          "ĐƠN ĐẶT",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
                         ),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       fieldInfo(
-                          "Ngày đặt: ",
-                          (_rangeStart != null && _rangeEnd != null)
-                              ? DateFormat('dd/MM/yyyy').format(_rangeStart!) +
-                                  ' - ' +
-                                  DateFormat('dd/MM/yyyy').format(_rangeEnd!)
-                              : 'Chưa chọn ngày.'),
+                          "Ngày checkin: ",
+                          (_rangeStart != null)
+                              ? DateFormat('dd/MM/yyyy').format(_rangeStart!)
+                              : 'Trống.'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo(
+                          "Ngày checkout: ",
+                          (_rangeEnd != null)
+                              ? DateFormat('dd/MM/yyyy').format(_rangeEnd!)
+                              : 'Trống.'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo("Giờ checkin: ", "14:00 chiều"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo("Giờ checkout: ", "12:00 trưa"),
                       SizedBox(
                         height: 5,
                       ),
@@ -296,7 +432,12 @@ class _BookingPageState extends State<BookingPage> {
                       SizedBox(
                         height: 5,
                       ),
-                      fieldInfo("Tiền phòng: ", NumberFormat('#').format(room.discountPrice) + 'đ'),
+                      fieldInfo(
+                          "Tiền phòng: ",
+                          (_rangeStart != null && _rangeEnd != null)
+                              ? formatMoney(room.discountPrice *
+                                  _rangeEnd!.difference(_rangeStart!).inDays)
+                              : ""),
                     ],
             ),
           );
@@ -313,10 +454,21 @@ class _BookingPageState extends State<BookingPage> {
         : InkWell(
             onTap: () async {
               room.then((data) async {
-                if (_rangeStart == null || _rangeEnd == null){
-                  WarningToast(context: context, content: "Chưa chọn ngày đi và về.").ShowToast();
+                if (_rangeStart == null || _rangeEnd == null) {
+                  WarningToast(
+                          context: context, content: "Chưa chọn ngày đi và về.")
+                      .ShowToast();
                   return;
                 }
+
+                if (!_checkSelectedDate()) {
+                  WarningToast(
+                          context: context,
+                          content: "Lỗi vi phạm ngày đặt phòng.")
+                      .ShowToast();
+                  return;
+                }
+
                 Booking booking = new Booking(
                   startDate: _rangeStart!.toIso8601String(),
                   endDate: _rangeEnd!.toIso8601String(),
@@ -329,14 +481,16 @@ class _BookingPageState extends State<BookingPage> {
                 );
                 ApiResponse response = await createBooking(booking);
                 if (response.status) {
-                  SuccessToast(
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => SuccessPage()),
+                      (Route<dynamic> route) => false);
+                } else {
+                  WarningToast(
                     context: context,
                     content: response.message,
                     duration: Duration(seconds: 1),
                   ).ShowToast();
-                  return;
-                } else {
-                  WarningToast(context: context, content: response.message, duration: Duration(seconds: 1),).ShowToast();
                   return;
                 }
               });
@@ -346,7 +500,7 @@ class _BookingPageState extends State<BookingPage> {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Theme.of(context).colorScheme.primary,
               ),
               child: Center(
                 child: Text(
@@ -354,10 +508,79 @@ class _BookingPageState extends State<BookingPage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Theme.of(context).colorScheme.surface),
+                      color: Theme.of(context).colorScheme.onPrimary),
                 ),
               ),
             ),
           );
   }
+
+  bool _checkSelectedDate() {
+    Map<DateTime, List<BookingDate>> _selectedBookingDate =
+        _getListBookingDate(_rangeStart!, _rangeEnd!);
+    for (var selectedDate in _selectedBookingDate[_rangeStart!]!) {
+      if (events[selectedDate.dateTime] != null) {
+        for (var event in events[selectedDate.dateTime]!) {
+          if (event.type == BookingDateType.Allday) {
+            return false;
+          }
+          if (selectedDate.type == BookingDateType.Allday) {
+            return false;
+          }
+          if (selectedDate.type == event.type) {
+            return false;
+          }
+          if (selectedDate.type == BookingDateType.Checkout &&
+              event.type == BookingDateType.Checkin) {
+            return false;
+          }
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+    return true;
+  }
+}
+
+int getHashCode(DateTime key) {
+  return key.day * 1000000 + key.month * 10000 + key.year;
+}
+
+Map<DateTime, List<BookingDate>> _getListBookingDate(
+    DateTime first, DateTime last) {
+  LinkedHashMap<DateTime, List<BookingDate>> _listDate =
+      LinkedHashMap<DateTime, List<BookingDate>>(
+    equals: isSameDay,
+    hashCode: getHashCode,
+  );
+
+  _listDate[first] = [
+    BookingDate(dateTime: first, type: BookingDateType.Checkin)
+  ];
+
+  for (var i = 1; i < last.difference(first).inDays; i++) {
+    var date = first.add(Duration(days: i));
+    _listDate[date] = [
+      BookingDate(dateTime: date, type: BookingDateType.Allday)
+    ];
+  }
+
+  _listDate[last] = [
+    BookingDate(dateTime: last, type: BookingDateType.Checkout)
+  ];
+
+  return _listDate;
+}
+
+List<BookingDate> _listBookingDateFromRange(DateTime first, DateTime last) {
+  List<BookingDate> _returnList = [];
+  _returnList.add(BookingDate(dateTime: first, type: BookingDateType.Checkin));
+  for (var i = 1; i < last.difference(first).inDays; i++) {
+    var date = first.add(Duration(days: i));
+    _returnList.add(BookingDate(dateTime: date, type: BookingDateType.Allday));
+  }
+  _returnList.add(BookingDate(dateTime: last, type: BookingDateType.Checkout));
+  return _returnList;
 }
