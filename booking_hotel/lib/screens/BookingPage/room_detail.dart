@@ -3,6 +3,7 @@ import 'package:booking_hotel/class/shared_preferences.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/model/user.dart';
+import 'package:booking_hotel/screens/BookingPage/booking_page.dart';
 import 'package:booking_hotel/screens/home_layout.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -141,6 +142,16 @@ class _RoomDetailState extends State<RoomDetail> {
                                   );
                                 },
                               );
+                              if (loggedInUser == null) {
+                                WarningToast(
+                                        context: context,
+                                        content:
+                                            "Bạn phải đăng nhập mới được thêm vào danh sách yêu thích",
+                                        duration: Duration(seconds: 3))
+                                    .ShowToast();
+                                    Navigator.of(context).pop();
+                                return;
+                              }
                               ApiResponse response = await addLikeRoom(
                                   loggedInUser!.userId.toString(),
                                   room.roomId.toString());
@@ -250,6 +261,7 @@ class _RoomDetailState extends State<RoomDetail> {
           Container(
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
               border: Border(
                 top: BorderSide(color: Colors.black, width: 1),
               ),
@@ -263,7 +275,7 @@ class _RoomDetailState extends State<RoomDetail> {
                     children: [
                       (!(room.price == room.discountPrice)
                           ? Text(
-                              room.price.toString() + "đ",
+                              NumberFormat("###.#").format(room.price) + "đ",
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -285,9 +297,11 @@ class _RoomDetailState extends State<RoomDetail> {
                                       Theme.of(context).colorScheme.onSurface),
                             ),
                             TextSpan(
-                              text: '\ / ngày',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 18),
+                              text: '\/ngày',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  fontSize: 18),
                             )
                           ],
                         ),
@@ -301,17 +315,28 @@ class _RoomDetailState extends State<RoomDetail> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         decoration: BoxDecoration(
-                          color: Color.fromRGBO(16, 74, 112, 1),
-                          borderRadius: BorderRadius.circular(20),
+                          color: Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Center(
                           child: Text(
                             "ĐẶT NGAY",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontSize: 18),
                           ),
                         ),
                       ),
-                      onTap: () async {}),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookingPage(
+                              idRoom: room.roomId.toString(),
+                            ),
+                          ),
+                        );
+                      }),
                 )
               ],
             ),

@@ -1,6 +1,8 @@
 import 'package:booking_hotel/class/api_respond.dart';
-import 'package:booking_hotel/model/user.dart';
+import 'package:booking_hotel/model/user.dart' as models;
 import 'package:booking_hotel/components/CustomToast.dart';
+import 'package:booking_hotel/model/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
@@ -66,16 +68,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // get started text
                       Text(
                         'Sign up here',
                         style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.w900,
-                          //color: lightColorScheme.onSurface,
-                        ),
+                            fontSize: 30.0,
+                            fontWeight: FontWeight.w900,
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
-
                       const SizedBox(
                         height: 20.0,
                       ), //test
@@ -88,24 +87,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Họ tên'),
-                          hintText: 'Nhập họ tên',
-                          hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                            label: const Text('Họ tên'),
+                            hintText: 'Nhập họ tên',
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .secondary, // Default border color
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
+                            floatingLabelStyle: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurface, // Default border color
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            focusColor:
+                                Theme.of(context).colorScheme.onSurface),
                       ),
 
                       const SizedBox(
@@ -124,20 +136,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: const Text('Email'),
                           hintText: 'Nhập email',
                           hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          floatingLabelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                                color: Theme.of(context).colorScheme.onSurface),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          focusColor: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
 
@@ -154,18 +176,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ? 'Nhập ngày sinh'
                               : DateFormat('dd/MM/yyyy')
                                   .format(_selectedDate!), // Format the date
+                          hintStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          floatingLabelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusColor: Theme.of(context).colorScheme.onSurface,
                         ),
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
@@ -199,20 +237,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: const Text('Số điện thoại'),
                           hintText: 'Nhập số điện thoại ...',
                           hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .shadow, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          floatingLabelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusColor: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
 
@@ -234,20 +285,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: const Text('Số CCCD'),
                           hintText: 'Nhập số CCCD',
                           hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .shadow, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          floatingLabelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusColor: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       const SizedBox(
@@ -269,20 +333,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           label: const Text('Mật khẩu'),
                           hintText: 'Nhập mật khẩu.',
                           hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.outline,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .shadow, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          floatingLabelStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.outline, // Default border color
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface, // Default border color
                             ),
                             borderRadius: BorderRadius.circular(10),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusColor: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
 
@@ -324,38 +401,83 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll<Color>(Theme.of(context).colorScheme.onSurface)
-                          ),
+                              backgroundColor: WidgetStatePropertyAll<Color>(
+                                  Theme.of(context).colorScheme.onSurface)),
                           onPressed: () async {
                             if (_formSignupKey.currentState!.validate() &&
                                 agreePersonalData) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Đang xử lý'),
-                                ),
-                              );
-
-                              User getInfo = User(
-                                  userGmail: emailTextField.text,
-                                  userPassword: passwordTextField.text,
-                                  userName: fullnameTextField.text,
-                                  dateOfBirth: dateOfBirthTextField.text,
-                                  userPhone: phoneNumberTextField.text,
-                                  userIdcard: CCCDTextField.text);
-
-                              ApiResponse response = await createUser(getInfo);
-
-                              if (!response.status) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  });
+                              try {
+                                var user = models.User(
+                                    userGmail: emailTextField.text,
+                                    userPassword: passwordTextField.text,
+                                    userName: fullnameTextField.text,
+                                    dateOfBirth: dateOfBirthTextField.text,
+                                    userPhone: phoneNumberTextField.text,
+                                    userIdcard: CCCDTextField.text);
+                                ApiResponse response = await createUser(user);
+                                Navigator.pop(context);
+                                if (!response.status) {
+                                  WarningToast(
+                                    context: context,
+                                    content: response.message,
+                                    duration: Duration(seconds: 2),
+                                  ).ShowToast();
+                                  return;
+                                } else {
+                                  FirebaseAuth.instance
+                                      .createUserWithEmailAndPassword(
+                                          email: emailTextField.text,
+                                          password: passwordTextField.text);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text(
+                                              'Đăng ký tài khoản thành công'),
+                                          content: const SingleChildScrollView(
+                                            child: ListBody(
+                                              children: <Widget>[
+                                                Text(
+                                                    'Chuyển sang trang đăng nhập?'),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text('Huỷ'),
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            TextButton(
+                                              child: const Text('Ok'),
+                                              onPressed: () {
+                                                Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (e) =>
+                                                        const SignInScreen(),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      });
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                Navigator.pop(context);
                                 WarningToast(
                                   context: context,
-                                  content: response.message,
+                                  content: e.code,
                                   duration: Duration(seconds: 2),
-                                ).ShowToast();
-                                return;
-                              } else {
-                                SuccessToast(
-                                  context: context,
-                                  content: response.message,
                                 ).ShowToast();
                                 return;
                               }
@@ -369,7 +491,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               return;
                             }
                           },
-                          child: Text('Sign up', style: TextStyle(color: Theme.of(context).colorScheme.surface),),
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.surface),
+                          ),
                         ),
                       ),
 
@@ -440,10 +566,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             child: Text(
                               'Sign in',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 18
-                              ),
+                                  fontWeight: FontWeight.bold,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                  fontSize: 18),
                             ),
                           ),
                         ],

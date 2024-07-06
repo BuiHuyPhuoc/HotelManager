@@ -70,7 +70,11 @@ class _CustomToastState extends State<CustomToast> {
           SizedBox(
             width: 10,
           ),
-          widget.toastContent()
+          Expanded(
+            child: Center(
+              child: widget.toastContent(),
+            ),
+          )
         ],
       ),
     );
@@ -182,7 +186,8 @@ class NotifyToast extends CustomToast {
   Widget toastContent() {
     return Text(
       content,
-      style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
+      style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurface, fontSize: 16),
     );
   }
 }

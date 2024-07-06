@@ -1,7 +1,10 @@
+import 'package:booking_hotel/class/auth_service.dart';
 import 'package:booking_hotel/class/shared_preferences.dart';
-import 'package:booking_hotel/model/user.dart';
+import 'package:booking_hotel/model/user.dart' as models;
 import 'package:booking_hotel/components/CustomToast.dart';
+import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/screens/home_layout.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
@@ -27,9 +30,56 @@ class _SignInScreenState extends State<SignInScreen> {
     super.dispose();
   }
 
+  void emailSignIn() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+    models.User? getAccount = await getUserByEmail(emailInputField.text);
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailInputField.text, password: passwordInputField.text);
+
+      if (getAccount == null) {
+        WarningToast(context: context, content: "Không tìm thấy tài khoản")
+            .ShowToast();
+        await FirebaseAuth.instance.signOut();
+        return;
+      }
+      UserPreferences.saveUser(getAccount);
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (e) => const HomeLayout(),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (getAccount != null) {
+        UserPreferences.saveUser(getAccount);
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (e) => const HomeLayout(),
+          ),
+        );
+      } else {
+        WarningToast(
+          context: context,
+          content: "Sai thông tin.",
+        ).ShowToast();
+        Navigator.pop(context);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  CustomScaffold(
+    return CustomScaffold(
       child: Column(
         children: [
           const Expanded(
@@ -69,29 +119,30 @@ class _SignInScreenState extends State<SignInScreen> {
                       controller: emailInputField,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Email';
+                          return 'Vui lòng nhập email';
                         }
                         return null;
                       },
                       decoration: InputDecoration(
                         label: const Text('Email'),
-                        hintText: 'Enter Email',
-                        hintStyle: const TextStyle(
-                          //color: Colors.black,
-                        ),
-                        
+                        hintText: 'Nhập email',
+                        hintStyle: const TextStyle(),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        floatingLabelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline),
+                        focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        errorStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.error),
                       ),
                     ),
                     const SizedBox(
@@ -111,16 +162,18 @@ class _SignInScreenState extends State<SignInScreen> {
                         label: const Text('Password'),
                         hintText: 'Enter Password',
                         hintStyle: const TextStyle(
-                          //color: Colors.black26,
-                        ),
+                            //color: Colors.black26,
+                            ),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:  BorderSide(
+                        floatingLabelStyle: TextStyle(
+                            color: Theme.of(context).colorScheme.outline),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
                             color: Theme.of(context).colorScheme.outline,
                           ),
                           borderRadius: BorderRadius.circular(10),
@@ -142,13 +195,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                   rememberPassword = value!;
                                 });
                               },
-                              activeColor: Theme.of(context).colorScheme.outline,
+                              activeColor:
+                                  Theme.of(context).colorScheme.outline,
                             ),
                             const Text(
                               'Remember me',
                               style: TextStyle(
-                                //color: Colors.black45,
-                              ),
+                                  //color: Colors.black45,
+                                  ),
                             )
                           ],
                         ),
@@ -158,7 +212,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             'Forget password?',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                         ),
@@ -170,35 +224,19 @@ class _SignInScreenState extends State<SignInScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: WidgetStatePropertyAll<Color>(
+                                Theme.of(context).colorScheme.primary)),
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary),
+                        ),
                         onPressed: () async {
                           if (_formSignInKey.currentState!.validate()) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text('Processing Data'),
-                            //   ),
-                            // );
-
-                            User? loggedInUser = await loginUser(
-                                emailInputField.text, passwordInputField.text);
-                                
-                            if (loggedInUser == null) {
-                              WarningToast(
-                                      context: context,
-                                      content:
-                                          "Sai tên đăng nhập hoặc mật khẩu")
-                                  .ShowToast();
-                              return;
-                            }
-                            await UserPreferences.saveUser(loggedInUser);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (e) => const HomeLayout(),
-                              ),
-                            );
+                            emailSignIn();
                           }
                         },
-                        child: const Text('Sign In'),
                       ),
                     ),
                     const SizedBox(
@@ -221,8 +259,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: Text(
                             'Sign in with',
                             style: TextStyle(
-                              //color: Colors.black45,
-                            ),
+                                //color: Colors.black45,
+                                ),
                           ),
                         ),
                         Expanded(
@@ -241,7 +279,12 @@ class _SignInScreenState extends State<SignInScreen> {
                       children: [
                         Logo(Logos.facebook_f),
                         Logo(Logos.twitter),
-                        Logo(Logos.google),
+                        GestureDetector(
+                          onTap: () {
+                            AuthService().signInWithGoogle(context);
+                          },
+                          child: Logo(Logos.google),
+                        ),
                         Logo(Logos.apple),
                       ],
                     ),
@@ -255,8 +298,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         const Text(
                           'Don\'t have an account? ',
                           style: TextStyle(
-                            //color: Colors.black45,
-                          ),
+                              //color: Colors.black45,
+                              ),
                         ),
                         GestureDetector(
                           onTap: () {

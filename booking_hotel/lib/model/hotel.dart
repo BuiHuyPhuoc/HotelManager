@@ -65,3 +65,17 @@ Future<List<String>> getCities() async {
     throw Exception('Failed to load cities.');
   }
 }
+
+Future<List<Hotel>> getHotels() async {
+  final url = Uri.parse('https://10.0.2.2:7052/api/Hotel/GetHotels');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    List<dynamic> jsonList = jsonDecode(response.body);
+    // Chuyển đổi phản hồi JSON thành danh sách các chuỗi
+    List<Hotel> hotels = jsonList.map((json) => Hotel.fromJson(json)).toList();
+    return hotels;
+  } else {
+    throw Exception('Failed to load cities.');
+  }
+}

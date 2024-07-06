@@ -5,7 +5,7 @@ namespace BookingHotelAPI.Models;
 
 public partial class Booking
 {
-    public int? BookingId { get; set; }
+    public int BookingId { get; set; }
 
     public DateTime? StartDate { get; set; }
 

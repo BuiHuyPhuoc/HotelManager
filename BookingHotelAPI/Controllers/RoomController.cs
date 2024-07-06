@@ -249,7 +249,56 @@ namespace BookingHotelAPI.Controllers
             var checkRoom = db.Favorites.Where(x => x.RoomId == parseRoomId && x.UserId == parseUserId).FirstOrDefault();
             return checkRoom == null ? false : true ;
         }
+        [HttpGet]
+        [Route("GetAllRooms")]
+        public IActionResult GetRooms()
+        {
+            var rooms = from r in db.Rooms
+                        join h in db.Hotels on r.HotelId equals h.HotelId
+                        select new
+                        {
+                            h.HotelName,
+                            h.HotelCity,
+                            h.HotelAddress,
+                            h.HotelPhone,
+                            r.RoomId,
+                            r.RoomDescription,
+                            r.NumberPeople,
+                            r.Price,
+                            r.DiscountPrice,
+                            r.RoomImage,
+                            r.HotelId,
+                            r.RoomValid
+                        };
 
+            return Ok(rooms);
+        }
+
+
+
+        [HttpGet]
+        [Route("GetBookingDateOfRoom")]
+        public IActionResult GetBookingDate(String idRoom)
+        {
+            int _parseValue = int.Parse(idRoom);
+            var rooms = from r in db.Rooms
+                        join h in db.Hotels on r.HotelId equals h.HotelId
+                        join b in db.Bookings on r.RoomId equals b.RoomId where b.RoomId == _parseValue
+                        select new
+                        {
+                            b.BookingId,
+                            b.StartDate,
+                            b.EndDate,
+                            b.BookingStatus,
+                            b.BookingPaid,
+                            b.BookingPrice,
+                            b.BookingDiscount,
+                            b.UserId,
+                            b.RoomId,
+                            b.BookingDate
+                        };
+            return Ok(rooms);
+        }
 
     }
 }

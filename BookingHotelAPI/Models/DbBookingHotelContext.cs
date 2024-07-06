@@ -23,6 +23,8 @@ public partial class DbBookingHotelContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
+    public virtual DbSet<OrderInfo> OrderInfos { get; set; }
+
     public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -35,11 +37,11 @@ public partial class DbBookingHotelContext : DbContext
     {
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACD90B771A6");
+            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACD54C8C26E");
 
             entity.ToTable("Booking");
 
-            entity.HasIndex(e => e.BookingId, "UQ__Booking__73951ACCF06168EF").IsUnique();
+            entity.HasIndex(e => e.BookingId, "UQ__Booking__73951ACCC89AAC90").IsUnique();
 
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
             entity.Property(e => e.BookingDate).HasColumnType("datetime");
@@ -63,7 +65,7 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => new { e.RoomId, e.UserId }).HasName("PK__Favorite__E3FEB5D38D9C4A7E");
+            entity.HasKey(e => new { e.RoomId, e.UserId }).HasName("PK__Favorite__E3FEB5D378B521CA");
 
             entity.ToTable("Favorite");
 
@@ -73,21 +75,21 @@ public partial class DbBookingHotelContext : DbContext
             entity.HasOne(d => d.Room).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.RoomId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Favorite__RoomID__34C8D9D1");
+                .HasConstraintName("FK__Favorite__RoomID__36B12243");
 
             entity.HasOne(d => d.User).WithMany(p => p.Favorites)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Favorite__UserID__35BCFE0A");
+                .HasConstraintName("FK__Favorite__UserID__37A5467C");
         });
 
         modelBuilder.Entity<Hotel>(entity =>
         {
-            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BBF3542268B");
+            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BBFFC40F573");
 
             entity.ToTable("Hotel");
 
-            entity.HasIndex(e => e.HotelId, "UQ__Hotel__46023BBE23C555DA").IsUnique();
+            entity.HasIndex(e => e.HotelId, "UQ__Hotel__46023BBEE13BF734").IsUnique();
 
             entity.Property(e => e.HotelId).HasColumnName("HotelID");
             entity.Property(e => e.HotelAddress).HasMaxLength(255);
@@ -100,11 +102,11 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAF0914E502");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAF909405DD");
 
             entity.ToTable("Order");
 
-            entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BAEC5942CFD").IsUnique();
+            entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BAEF655C80F").IsUnique();
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
@@ -114,13 +116,27 @@ public partial class DbBookingHotelContext : DbContext
             entity.Property(e => e.UserId).HasColumnName("UserID");
         });
 
+        modelBuilder.Entity<OrderInfo>(entity =>
+        {
+            entity.HasKey(e => e.OrderId).HasName("PK__OrderInf__C3905BCFE896455C");
+
+            entity.ToTable("OrderInfo");
+
+            entity.Property(e => e.OrderId).ValueGeneratedNever();
+            entity.Property(e => e.BankCode).HasMaxLength(50);
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.OrderDesc).HasMaxLength(255);
+            entity.Property(e => e.PayStatus).HasMaxLength(50);
+            entity.Property(e => e.Status).HasMaxLength(50);
+        });
+
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__328639192DB70858");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__328639197761D3A8");
 
             entity.ToTable("Room");
 
-            entity.HasIndex(e => e.RoomId, "UQ__Room__32863918F9CF4A1D").IsUnique();
+            entity.HasIndex(e => e.RoomId, "UQ__Room__32863918A4B01043").IsUnique();
 
             entity.Property(e => e.RoomId).HasColumnName("RoomID");
             entity.Property(e => e.DiscountPrice).HasColumnType("decimal(18, 0)");
@@ -132,11 +148,11 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACE31FA8A0");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACB3FFE6D9");
 
             entity.ToTable("User");
 
-            entity.HasIndex(e => e.UserId, "UQ__User__1788CCAD1688169E").IsUnique();
+            entity.HasIndex(e => e.UserId, "UQ__User__1788CCAD6640C1F4").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.DateOfBirth).HasColumnType("datetime");

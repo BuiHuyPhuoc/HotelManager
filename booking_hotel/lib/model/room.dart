@@ -166,3 +166,15 @@ Future<bool> isFavoriteRoom(String roomId, String userId) async {
   bool check = bool.parse(res);
   return check;
 }
+
+Future<List<Room>> getAllRooms() async {
+  final url = Uri.parse('https://10.0.2.2:7052/api/Room/GetAllRooms');
+  var response = await http.get(url);
+  if (response.statusCode == 200) {
+    List<dynamic> jsonList = jsonDecode(response.body);
+    List<Room> rooms = jsonList.map((json) => Room.fromJson(json)).toList();
+    return rooms;
+  } else {
+    throw Exception('Failed to load rooms');
+  }
+}

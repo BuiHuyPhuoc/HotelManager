@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:booking_hotel/class/api_respond.dart';
+import 'package:booking_hotel/class/date_format.dart';
 import 'package:http/http.dart' as http;
 
 class User {
@@ -57,7 +58,6 @@ class User {
   }
 
   String toJson() => json.encode(toMap());
-
 }
 
 Future<User?> loginUser(String userGmail, String userPassword) async {
@@ -87,12 +87,15 @@ Future<ApiResponse> createUser(User? user) async {
   final url = Uri.parse('https://10.0.2.2:7052/api/User/UserRegister');
   final headers = {"Content-Type": "application/json"};
   final body = jsonEncode({
-    'UserGmail': user.userGmail,
-    'UserPhone': user.userPhone,
-    'UserPassword': user.userPassword,
-    'UserName': user.userName,
-    'UserIdcard': user.userIdcard,
-    'DateOfBirth': user.dateOfBirth,
+    'userGmail': user.userGmail,
+    'userPhone': user.userPhone,
+    'userPassword': user.userPassword,
+    'userName': user.userName,
+    'userIdcard': user.userIdcard,
+    'dateOfBirth': DateFormater.convertDateFormat(
+        dateString: user.dateOfBirth,
+        inputFormat: "dd/MM/yyyy",
+        outputFormat: "yyyy-MM-dd")
   });
 
   final response = await http.post(url, headers: headers, body: body);
@@ -102,5 +105,22 @@ Future<ApiResponse> createUser(User? user) async {
     String message = json.decode(json.encode(response.body));
 
     return ApiResponse(status: false, message: '$message');
+  }
+}
+
+Future<User?> getUserByEmail(String email) async {
+  final url =
+      Uri.parse('https://10.0.2.2:7052/api/User/GetUserByEmail?email=$email');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    dynamic toJson = jsonDecode(response.body);
+    // Chuyển đổi phản hồi JSON thành danh sách các chuỗi
+    User user = User.fromJson(toJson);
+    return user;
+  } else if ( response.statusCode == 204) {
+    return null;
+  } else {
+    throw Exception('Failed to load User.');
   }
 }

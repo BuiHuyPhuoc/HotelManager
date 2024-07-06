@@ -87,3 +87,17 @@ Future<ApiResponse> createBooking(Booking? booking) async {
     return ApiResponse(status: false, message: '$message');
   }
 }
+
+Future<List<Booking>> getBookingById(String id) async {
+  int _parseValue = int.parse(id);
+  final url = Uri.parse('https://10.0.2.2:7052/api/Room/GetBookingDateOfRoom?idRoom=${_parseValue}');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    List<dynamic> jsonList = jsonDecode(response.body);
+    List<Booking> _bookingList = jsonList.map((json) => Booking.fromJson(json)).toList();
+    return _bookingList;
+  } else {
+    throw Exception('Failed to load cities.');
+  }
+}

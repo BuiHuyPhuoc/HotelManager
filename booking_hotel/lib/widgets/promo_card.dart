@@ -49,7 +49,7 @@ class PromoCard extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      padding: EdgeInsets.all(5),
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: Row(
                         children: [
                           Icon(
