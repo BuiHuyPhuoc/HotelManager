@@ -6,8 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
-
-import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -69,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Sign up here',
+                        AppLocalizations.of(context)!.signUpHere,
                         style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.w900,
@@ -82,13 +81,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: fullnameTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập họ tên.';
+                            return AppLocalizations.of(context)!.userInfo('fullName');
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                            label: const Text('Họ tên'),
-                            hintText: 'Nhập họ tên',
+                            label:  Text(AppLocalizations.of(context)!.userInfo('fullName')),
+                            hintText: AppLocalizations.of(context)!.userInfo('fullName'),
                             hintStyle: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                             ),
@@ -128,13 +127,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: emailTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập email.';
+                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('email'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Email'),
-                          hintText: 'Nhập email',
+                          label: Text(AppLocalizations.of(context)!.userInfo('email')),
+                          hintText: AppLocalizations.of(context)!.userInfo('email'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -171,9 +170,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: dateOfBirthTextField,
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: 'Ngày sinh',
+                          labelText: AppLocalizations.of(context)!.userInfo('dateOfBirth'),
                           hintText: _selectedDate == null
-                              ? 'Nhập ngày sinh'
+                              ? AppLocalizations.of(context)!.userInfo('dateOfBirth')
                               : DateFormat('dd/MM/yyyy')
                                   .format(_selectedDate!), // Format the date
                           hintStyle: TextStyle(
@@ -229,13 +228,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập số điện thoại';
+                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('phoneNumber'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Số điện thoại'),
-                          hintText: 'Nhập số điện thoại ...',
+                          label: Text(AppLocalizations.of(context)!.userInfo('phoneNumber')),
+                          hintText: AppLocalizations.of(context)!.userInfo('phoneNumber'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -277,13 +276,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập CCCD';
+                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('id'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Số CCCD'),
-                          hintText: 'Nhập số CCCD',
+                          label: Text(AppLocalizations.of(context)!.userInfo('id')),
+                          hintText: AppLocalizations.of(context)!.userInfo('id'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -325,13 +324,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         obscuringCharacter: '*',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Nhập mật khẩu.';
+                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('password'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text('Mật khẩu'),
-                          hintText: 'Nhập mật khẩu.',
+                          label: Text(AppLocalizations.of(context)!.userInfo('password')),
+                          hintText: AppLocalizations.of(context)!.userInfo('password'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -379,16 +378,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             },
                             activeColor: Theme.of(context).colorScheme.outline,
                           ),
-                          const Text(
-                            'Tôi đồng ý với ',
-                          ),
                           Text(
-                            'các điều khoản và dịch vụ.',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                          ),
+                            AppLocalizations.of(context)!.agreeTerms,
+                          )
                         ],
                       ),
 
@@ -439,25 +431,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: const Text(
-                                              'Đăng ký tài khoản thành công'),
-                                          content: const SingleChildScrollView(
+                                          title: Text(
+                                              AppLocalizations.of(context)!.signUpSuccess),
+                                          content: SingleChildScrollView(
                                             child: ListBody(
                                               children: <Widget>[
                                                 Text(
-                                                    'Chuyển sang trang đăng nhập?'),
+                                                    AppLocalizations.of(context)!.navigationTo(AppLocalizations.of(context)!.signIn)),
                                               ],
                                             ),
                                           ),
                                           actions: <Widget>[
                                             TextButton(
-                                              child: const Text('Huỷ'),
+                                              child: Text(AppLocalizations.of(context)!.choice('cancel')),
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
                                             ),
                                             TextButton(
-                                              child: const Text('Ok'),
+                                              child: Text(AppLocalizations.of(context)!.choice('accept')),
                                               onPressed: () {
                                                 Navigator.pushReplacement(
                                                   context,
@@ -485,24 +477,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               WarningToast(
                                 context: context,
                                 content:
-                                    'Vui lòng đồng ý với các điều khoản và dịch vụ',
+                                    AppLocalizations.of(context)!.pleaseAgreeTerms,
                                 duration: Duration(seconds: 2),
                               ).ShowToast();
                               return;
                             }
                           },
                           child: Text(
-                            'Sign up',
+                            AppLocalizations.of(context)!.signUp,
                             style: TextStyle(
                                 color: Theme.of(context).colorScheme.surface),
                           ),
                         ),
                       ),
-
                       const SizedBox(
                         height: 30.0,
                       ),
-
                       // sign up divider
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -513,47 +503,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: Colors.grey.withOpacity(0.5),
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 0,
-                              horizontal: 10,
-                            ),
-                            child: Text(
-                              'Sign up with',
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 0.7,
-                              color: Colors.grey.withOpacity(0.5),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(
-                        height: 30.0,
-                      ),
-                      // sign up social media logo
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Logo(Logos.facebook_f),
-                          Logo(Logos.google),
-                          Logo(Logos.apple),
                         ],
                       ),
                       const SizedBox(
                         height: 25.0,
                       ),
-
                       // already have an account
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text(
-                            'Already have an account? ',
+                          Text(
+                            AppLocalizations.of(context)!.haveAccount,
                           ),
+                          SizedBox(width: 4,),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -564,7 +526,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               );
                             },
                             child: Text(
-                              'Sign in',
+                              AppLocalizations.of(context)!.signIn,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color:

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -44,7 +45,9 @@ class _SignInScreenState extends State<SignInScreen> {
           email: emailInputField.text, password: passwordInputField.text);
 
       if (getAccount == null) {
-        WarningToast(context: context, content: "Không tìm thấy tài khoản")
+        WarningToast(
+                context: context,
+                content: AppLocalizations.of(context)!.userNotFound)
             .ShowToast();
         await FirebaseAuth.instance.signOut();
         return;
@@ -70,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
       } else {
         WarningToast(
           context: context,
-          content: "Sai thông tin.",
+          content: AppLocalizations.of(context)!.userNotFound,
         ).ShowToast();
         Navigator.pop(context);
       }
@@ -105,7 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Welcome back',
+                      AppLocalizations.of(context)!.welcomeBack,
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w900,
@@ -119,13 +122,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       controller: emailInputField,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập email';
+                          return AppLocalizations.of(context)!.pleaseInputField(
+                              AppLocalizations.of(context)!.userInfo('email'));
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        label: const Text('Email'),
-                        hintText: 'Nhập email',
+                        label: Text(
+                            AppLocalizations.of(context)!.userInfo('email')),
+                        hintText:
+                            AppLocalizations.of(context)!.userInfo('email'),
                         hintStyle: const TextStyle(),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -154,13 +160,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       obscuringCharacter: '*',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Password';
+                          return AppLocalizations.of(context)!.pleaseInputField(
+                              AppLocalizations.of(context)!
+                                  .userInfo('password'));
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        label: const Text('Password'),
-                        hintText: 'Enter Password',
+                        label: Text(
+                            AppLocalizations.of(context)!.userInfo('password')),
+                        hintText:
+                            AppLocalizations.of(context)!.userInfo('password'),
                         hintStyle: const TextStyle(
                             //color: Colors.black26,
                             ),
@@ -183,40 +193,18 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(
                       height: 25.0,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: rememberPassword,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  rememberPassword = value!;
-                                });
-                              },
-                              activeColor:
-                                  Theme.of(context).colorScheme.outline,
-                            ),
-                            const Text(
-                              'Remember me',
-                              style: TextStyle(
-                                  //color: Colors.black45,
-                                  ),
-                            )
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forget password?',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          AppLocalizations.of(context)!.forgotPassword,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                     const SizedBox(
                       height: 25.0,
@@ -228,7 +216,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             backgroundColor: WidgetStatePropertyAll<Color>(
                                 Theme.of(context).colorScheme.primary)),
                         child: Text(
-                          'Sign In',
+                          AppLocalizations.of(context)!.signIn,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onPrimary),
                         ),
@@ -251,13 +239,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.grey.withOpacity(0.5),
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: 0,
                             horizontal: 10,
                           ),
                           child: Text(
-                            'Sign in with',
+                            AppLocalizations.of(context)!.signInWith,
                             style: TextStyle(
                                 //color: Colors.black45,
                                 ),
@@ -295,12 +283,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Don\'t have an account? ',
+                        Text(
+                          AppLocalizations.of(context)!.dontHaveAccount,
                           style: TextStyle(
                               //color: Colors.black45,
                               ),
                         ),
+                        SizedBox(width: 4,),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -311,7 +300,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             );
                           },
                           child: Text(
-                            'Sign up',
+                            AppLocalizations.of(context)!.signUp,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
