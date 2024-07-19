@@ -3,6 +3,7 @@ import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/screens/BookingPage/room_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PromoCard extends StatelessWidget {
   final Tuple<Room, int> room;
@@ -49,7 +50,8 @@ class PromoCard extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: Row(
                         children: [
                           Icon(
@@ -61,9 +63,13 @@ class PromoCard extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            room.item2.toString() + " lượt",
+                            room.item2.toString() +
+                                " " +
+                                AppLocalizations.of(context)!.likeVote,
                             style: GoogleFonts.montserrat(
-                                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),

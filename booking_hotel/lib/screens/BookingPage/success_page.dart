@@ -1,6 +1,8 @@
 import 'package:booking_hotel/screens/home_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class SuccessPage extends StatelessWidget {
                 children: [
                   Center(
                     child: Text(
-                      "ĐẶT PHÒNG THÀNH CÔNG",
+                      AppLocalizations.of(context)!.bookingSucess.toUpperCase(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
@@ -35,7 +37,7 @@ class SuccessPage extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "Chúng tôi đã ghi nhận đơn đặt của bạn.",
+                      AppLocalizations.of(context)!.subBookingSuccess.toUpperCase(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: Colors.white,

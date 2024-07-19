@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -102,8 +102,7 @@
               "RelativeToolTip": "Models\\Account.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAkAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-06T07:35:46.613Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-06T07:35:46.613Z"
             },
             {
               "$type": "Document",
@@ -149,7 +148,7 @@
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AQIAAFoAAAAAAAAAAAAuwGYAAAAdAAAA",
+              "ViewState": "AQIAAEsAAAAAAAAAAAAuwGAAAAAVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-26T03:35:38.074Z",
               "EditorCaption": ""

@@ -1,9 +1,12 @@
 import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/main.dart';
 import 'package:booking_hotel/model/user.dart' as models;
 import 'package:booking_hotel/screens/ProfilePage/my_profile.dart';
 import 'package:booking_hotel/screens/auth_page.dart';
 import 'package:booking_hotel/screens/basic_login_screen.dart';
 import 'package:booking_hotel/widgets/custom_image_view.dart';
+import 'package:booking_hotel/widgets/language_item.dart';
+import 'package:country_flags/country_flags.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +23,27 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   bool isDarkmode = false;
   models.User? user;
-
+  List<LanguageItem> language_item = [
+    LanguageItem(
+      language: "English",
+      countryFlag: CountryFlag.fromLanguageCode(
+        'en',
+        shape: Circle(),
+        height: 20,
+        width: 20,
+      ),
+    ),
+    LanguageItem(
+      language: "Tiếng việt",
+      countryFlag: CountryFlag.fromCountryCode(
+        'VN',
+        height: 20,
+        width: 20,
+        shape: Circle(),
+      ),
+    ),
+  ];
+  late LanguageItem selectedItem;
   bool isLoading = true;
   void GetUser() async {
     user = await UserPreferences.getUser();
@@ -40,6 +63,7 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     GetUser();
+    selectedItem = (MyApp.of(context).getLocale() == Locale('vi')) ? language_item[1] : language_item[0];
   }
 
   @override
@@ -50,9 +74,41 @@ class _AccountPageState extends State<AccountPage> {
             ? Scaffold(
                 body: Center(child: CircularProgressIndicator()),
               )
-            : (user == null)
-                ? BasicLoginScreen(context: context)
-                : buildAccountPage(context));
+            : Scaffold(
+                appBar: AppBar(
+                  actions: [
+                    PopupMenuButton<LanguageItem>(
+                      initialValue: selectedItem,
+                      onSelected: (LanguageItem item) {
+                        setState(() {
+                          selectedItem = item;
+                          if (item.language == "Tiếng việt") {
+                            MyApp.of(context).setLocale(
+                                Locale.fromSubtags(languageCode: 'vi'));
+                          } else if (item.language == "English") {
+                            MyApp.of(context).setLocale(
+                                Locale.fromSubtags(languageCode: 'en'));
+                          }
+                        });
+                      },
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<LanguageItem>>[
+                        PopupMenuItem<LanguageItem>(
+                          value: language_item[0],
+                          child: language_item[0],
+                        ),
+                        PopupMenuItem<LanguageItem>(
+                          value: language_item[1],
+                          child: language_item[1],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                body: (user == null)
+                    ? BasicLoginScreen(context: context)
+                    : buildAccountPage(context),
+              ));
   }
 
   Widget buildAccountPage(BuildContext context) {
