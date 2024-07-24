@@ -134,6 +134,35 @@
   "warningBookedRoom": "room''s already booked" ,
   "warningDateInvalid" : "Choose the checkin and checkout day",
     "bookingSucess": "sucessful booking",
-  "subBookingSuccess": "We already save your booking room."
-
+  "subBookingSuccess": "We already save your booking room.",
+  "bookingRooms": "Booking Rooms",
+  "bookingStatus": "{ty, select, Unpaid{Unpaid} Paid{Paid} Cancelled{Cancelled} other{Other}}",
+  "@bookingStatus": {
+    "description": "Statement of booking status",
+    "placeholders": {
+      "ty": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelTicket": "cancel ticket",
+  "undoTicket" : "undo ticket",
+  "viewTicket": "view ticket",
+  "cusInfomation" : "customer information",
+  "@cusInfomation": {
+    "description": "Information of customer"
+  },
+  "bookingInfomation" : "booking information",
+  "bookingDate" : "booking date",
+  "updateRoomStatusSuccess" : "Update room status successfully",
+  "logout": "logout",
+  "logoutWarning" : "do you want to logout?",
+  "notification": "notification",
+  "security": "security",
+  "help": "help",
+  "updateProfile" : "update profile",
+  "lostInternetConnection": "lost internet connection",
+  "checkInternetConnection": "Check internet connection and try later.",
+  "bookedRoom" : "Booked room",
+  "youDontHaveAnyBookedRoom": "You don''t have any booked room."
 }

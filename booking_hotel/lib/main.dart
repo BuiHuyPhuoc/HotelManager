@@ -1,10 +1,23 @@
 // ignore_for_file: unused_import
 
+import 'dart:async';
 import 'dart:io';
+import 'package:booking_hotel/admin/booked_manager/manager_booked_room.dart';
+import 'package:booking_hotel/class/firebase_notification.dart';
+import 'package:booking_hotel/class/language_preferences.dart';
+import 'package:booking_hotel/class/string_format.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
+import 'package:booking_hotel/controller/network_controller.dart';
+import 'package:booking_hotel/model/login_device.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/screens/BookingPage/room_detail.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
-
+import 'package:booking_hotel/widgets/test_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,39 +44,78 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), child: MyApp()));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 
-  static _MyAppState of(BuildContext context) => context.findAncestorStateOfType<_MyAppState>()!;
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
 }
 
-class _MyAppState extends State<MyApp> {
-  Locale _locale = Locale('en');
-
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void setLocale(Locale value) {
     setState(() {
-      _locale = value;
+      Get.locale = value;
+      LanguagePreferences.saveLanguage(value); // Save language preference
     });
   }
 
   Locale getLocale() {
-    return _locale;
+    return Get.locale!;
+  }
+
+  Future<void> _loadLocale() async {
+    final Locale locale = await LanguagePreferences.getLanguage();
+    setState(() {
+      Get.locale = locale;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _loadLocale();
+  }
+
+  // void ChangeAccountStamentBeforeExitApp() async {
+  //   User? getUser = await UserPreferences.getUser();
+  //   String? deviceToken = await FirebaseMessaging.instance.getToken();
+  //   if (getUser != null) {
+  //     await SaveDevice(LoginDevice(
+  //         userId: getUser.userId!,
+  //         deviceToken: deviceToken!,
+  //         loginStatus: false));
+  //   }
+  // }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    //ChangeAccountStamentBeforeExitApp();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.put(NetworkController());
     return Consumer<ThemeProvider>(builder: (context, ThemeProvider, child) {
-      return MaterialApp(
+      return GetMaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: _locale,
+        locale: Get.locale, 
+        fallbackLocale: Locale(
+            'en'), 
         debugShowCheckedModeBanner: false,
-        home: RoomDetail('1'),
+        home: AuthPage(),
         theme: ThemeProvider.themeData,
       );
     });

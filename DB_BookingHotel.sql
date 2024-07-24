@@ -42,6 +42,7 @@ CREATE TABLE [User] (
 	[DateOfBirth] DATETIME,
 	[UserPhone] varCHAR(10),
 	[UserIDCard] varCHAR(15),
+	[Role] varchar(12),
 	PRIMARY KEY([UserID])
 );
 GO
@@ -92,17 +93,24 @@ CREATE TABLE [Favorite] (
 );
 GO
 
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('lgarnam0@hao123.com', '12345', 'Layton Garnam', '2024-05-31', '2539509557', '4041378208');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('pcounter1@reverbnation.com', '12345', 'Prissie Counter', '2023-07-29', '3458218615', '4017956125');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('jfounds2@prnewswire.com', '12345', 'Jeanette Founds', '2024-01-19', '5696515310', '4041376931');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('sgodmer3@msn.com', '12345', 'Sonya Godmer', '2024-05-19', '9318898239', '4041371976');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('rmacginlay4@amazonaws.com', '12345', 'Riobard MacGinlay', '2023-07-22', '2341779554', '4017956572');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('cscane5@foxnews.com', '12345', 'Cristiano Scane', '2023-12-07', '7027396922', '4017959797');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('dhaddy6@wisc.edu', '12345', 'Dal Haddy', '2024-01-22', '6015154968', '4041376882');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('gknatt7@cam.ac.uk', '12345', 'Gloria Knatt', '2023-10-04', '3661940507', '4041371800');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('cdendle8@japanpost.jp', '12345', 'Clarette Dendle', '2024-03-13', '5432004346', '4017957548');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('jbinny9@stumbleupon.com', '12345', 'Janet Binny', '2023-08-10', '3521854977', '4041373880');
-insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard]) values ('test@gmail.com', 'Test2k3.', 'Janet Test', '2003-08-10', '3521854967', '4042373880');
+create table [LoginDevice] (
+	[UserID] int references [User]([UserID]),
+	[DeviceToken] varchar(max),
+	[LoginStatus] bit
+)
+
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('lgarnam0@hao123.com', '12345', 'Layton Garnam', '2024-05-31', '2539509557', '4041378208', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('pcounter1@reverbnation.com', '12345', 'Prissie Counter', '2023-07-29', '3458218615', '4017956125', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('jfounds2@prnewswire.com', '12345', 'Jeanette Founds', '2024-01-19', '5696515310', '4041376931', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('sgodmer3@msn.com', '12345', 'Sonya Godmer', '2024-05-19', '9318898239', '4041371976', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('rmacginlay4@amazonaws.com', '12345', 'Riobard MacGinlay', '2023-07-22', '2341779554', '4017956572', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('cscane5@foxnews.com', '12345', 'Cristiano Scane', '2023-12-07', '7027396922', '4017959797', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('dhaddy6@wisc.edu', '12345', 'Dal Haddy', '2024-01-22', '6015154968', '4041376882', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('gknatt7@cam.ac.uk', '12345', 'Gloria Knatt', '2023-10-04', '3661940507', '4041371800', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('cdendle8@japanpost.jp', '12345', 'Clarette Dendle', '2024-03-13', '5432004346', '4017957548', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('jbinny9@stumbleupon.com', '12345', 'Janet Binny', '2023-08-10', '3521854977', '4041373880', 'User');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('test@gmail.com', 'Test2k3.', 'Janet Test', '2003-08-10', '3521854967', '4042373880', 'Admin');
+insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('test1@gmail.com', 'Test2k3.', 'Janet Test1', '2003-08-10', '3521854967', '4042373880', 'User');
 
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Isoniazid', N'0452 Londonderry Drive', N'Yufa', '9592821236');
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Enalapril Maleate', N'7827 Weeping Birch Road', N'Benito Juarez', '8857456362');
@@ -148,13 +156,12 @@ update Room
 set DiscountPrice = 200000
 where RoomID = 1
 
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 1, getdate())
-insert into [Booking] values ('20240706', '20240707', N'Chưa thanh toán', 0, 200000, 200000, 11, 1, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 2, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 3, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 4, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 5, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 6, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 7, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 8, getdate())
-insert into [Booking] values ('20240703', '20240705', N'Chưa thanh toán', 0, 200000, 200000, 11, 9, getdate())
+insert into [Booking] values ('20240801', '20240802', 'Unpaid', 0, 200000, 200000, 11, 1, getdate())
+insert into [Booking] values ('20240803', '20240805', 'Unpaid', 0, 400000, 400000, 11, 1, getdate())
+insert into [Booking] values ('20240807', '20240810', 'Unpaid', 0, 800000, 800000, 11, 2, getdate())
+
+select * from booking 
+select * from [User]
+select * from [LoginDevice]
+
+select * from LoginDevice

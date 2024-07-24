@@ -11,16 +11,17 @@ class User {
   final String dateOfBirth;
   final String userPhone;
   final String userIdcard;
+  final String role;
 
-  User({
-    this.userId = null,
-    required this.userGmail,
-    required this.userPassword,
-    required this.userName,
-    required this.dateOfBirth,
-    required this.userPhone,
-    required this.userIdcard,
-  });
+  User(
+      {this.userId = null,
+      required this.userGmail,
+      required this.userPassword,
+      required this.userName,
+      required this.dateOfBirth,
+      required this.userPhone,
+      required this.userIdcard,
+      required this.role});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -31,19 +32,21 @@ class User {
       dateOfBirth: json['dateOfBirth'],
       userPhone: json['userPhone'],
       userIdcard: json['userIdcard'],
+      role: json['role'],
     );
   }
-  factory User.fromJsonString(Map<String, dynamic> json) {
-    return User(
-      userId: json['userId'],
-      userGmail: json['userGmail'],
-      userPassword: json['userPassword'],
-      userName: json['userName'],
-      dateOfBirth: json['dateOfBirth'],
-      userPhone: json['userPhone'],
-      userIdcard: json['userIdcard'],
-    );
-  }
+  // factory User.fromJsonString(Map<String, dynamic> json) {
+  //   return User(
+  //     userId: json['userId'],
+  //     userGmail: json['userGmail'],
+  //     userPassword: json['userPassword'],
+  //     userName: json['userName'],
+  //     dateOfBirth: json['dateOfBirth'],
+  //     userPhone: json['userPhone'],
+  //     userIdcard: json['userIdcard'],
+  //     role: json['role'],
+  //   );
+  // }
 
   Map<String, dynamic> toMap() {
     return {
@@ -54,6 +57,7 @@ class User {
       'dateOfBirth': dateOfBirth,
       'userPhone': userPhone,
       'userIdcard': userIdcard,
+      'role': role
     };
   }
 
@@ -67,9 +71,9 @@ Future<User?> loginUser(String userGmail, String userPassword) async {
     "UserGmail": userGmail,
     "UserPassword": userPassword,
   });
-
+  //final respon = await dio.post(url.toString(), data: {body});
+  //final response = await http.post(url, headers: headers, body: body);
   final response = await http.post(url, headers: headers, body: body);
-
   if (response.statusCode == 200) {
     final Map<String, dynamic> responseData = json.decode(response.body);
     bool loginStatus = bool.parse(responseData['status'].toString());
@@ -84,7 +88,7 @@ Future<ApiResponse> createUser(User? user) async {
     return ApiResponse(status: false, message: "Người dùng trống.");
   }
 
-  final url = Uri.parse('https://10.0.2.2:7052/api/User/UserRegister');
+  final url = Uri.parse('ó/api/User/UserRegister');
   final headers = {"Content-Type": "application/json"};
   final body = jsonEncode({
     'userGmail': user.userGmail,
@@ -95,7 +99,8 @@ Future<ApiResponse> createUser(User? user) async {
     'dateOfBirth': DateFormater.convertDateFormat(
         dateString: user.dateOfBirth,
         inputFormat: "dd/MM/yyyy",
-        outputFormat: "yyyy-MM-dd")
+        outputFormat: "yyyy-MM-dd"),
+    'role': "User"
   });
 
   final response = await http.post(url, headers: headers, body: body);
@@ -118,7 +123,23 @@ Future<User?> getUserByEmail(String email) async {
     // Chuyển đổi phản hồi JSON thành danh sách các chuỗi
     User user = User.fromJson(toJson);
     return user;
-  } else if ( response.statusCode == 204) {
+  } else if (response.statusCode == 204) {
+    return null;
+  } else {
+    throw Exception('Failed to load User.');
+  }
+}
+
+Future<User?> getUserById(String id) async {
+  final url = Uri.parse('https://10.0.2.2:7052/api/User/GetUserById?id=$id');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    dynamic toJson = jsonDecode(response.body);
+    // Chuyển đổi phản hồi JSON thành danh sách các chuỗi
+    User user = User.fromJson(toJson);
+    return user;
+  } else if (response.statusCode == 204) {
     return null;
   } else {
     throw Exception('Failed to load User.');

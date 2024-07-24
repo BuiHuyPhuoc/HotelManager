@@ -125,12 +125,24 @@ namespace BookingHotelAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-           
-          
+
+
         }
 
-
-        // Validation Format Email
+        [HttpGet]
+        [Route("GetUserById")]
+        public IActionResult GetUserById(string id)
+        {
+            try
+            {
+                int parseValue = int.Parse(id);
+                var getUser = db.Users
+                            .Where(x => x.UserId == parseValue)
+                            .FirstOrDefault();
+                return Ok(getUser);
+            }
+            catch { return BadRequest(); }
+        }
 
     }
 }

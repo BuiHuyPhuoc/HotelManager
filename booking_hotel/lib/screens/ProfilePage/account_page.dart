@@ -1,17 +1,20 @@
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/auth_service.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
+import 'package:booking_hotel/class/string_format.dart';
 import 'package:booking_hotel/main.dart';
 import 'package:booking_hotel/model/user.dart' as models;
+import 'package:booking_hotel/screens/ProfilePage/booked_room.dart';
 import 'package:booking_hotel/screens/ProfilePage/my_profile.dart';
-import 'package:booking_hotel/screens/auth_page.dart';
 import 'package:booking_hotel/screens/basic_login_screen.dart';
 import 'package:booking_hotel/widgets/custom_image_view.dart';
 import 'package:booking_hotel/widgets/language_item.dart';
 import 'package:country_flags/country_flags.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:booking_hotel/theme/theme_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -52,6 +55,13 @@ class _AccountPageState extends State<AccountPage> {
     });
   }
 
+  void _initializeSelectedItem() {
+    Locale currentLocale = MyApp.of(context).getLocale();
+    selectedItem = (currentLocale.languageCode == 'vi')
+        ? language_item[1]
+        : language_item[0];
+  }
+
   @override
   void setState(VoidCallback fn) {
     if (mounted) {
@@ -63,7 +73,15 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     GetUser();
-    selectedItem = (MyApp.of(context).getLocale() == Locale('vi')) ? language_item[1] : language_item[0];
+    _initializeSelectedItem();
+  }
+
+  void _updateLanguage(LanguageItem item) {
+    if (item.language == "Tiếng việt") {
+      MyApp.of(context).setLocale(Locale('vi'));
+    } else if (item.language == "English") {
+      MyApp.of(context).setLocale(Locale('en'));
+    }
   }
 
   @override
@@ -82,14 +100,11 @@ class _AccountPageState extends State<AccountPage> {
                       onSelected: (LanguageItem item) {
                         setState(() {
                           selectedItem = item;
-                          if (item.language == "Tiếng việt") {
-                            MyApp.of(context).setLocale(
-                                Locale.fromSubtags(languageCode: 'vi'));
-                          } else if (item.language == "English") {
-                            MyApp.of(context).setLocale(
-                                Locale.fromSubtags(languageCode: 'en'));
-                          }
                         });
+                        _updateLanguage(item);
+                        Get.forceAppUpdate();
+                        Locale currentLocale = MyApp.of(context).getLocale();
+                        print("Current locale: " + currentLocale.languageCode);
                       },
                       itemBuilder: (BuildContext context) =>
                           <PopupMenuEntry<LanguageItem>>[
@@ -163,31 +178,41 @@ class _AccountPageState extends State<AccountPage> {
               ),
             ),
             SizedBox(height: 30),
-            profileSettingField(() {
-              OpenMyProfilePage(context);
-            }, Icons.person, "Sửa thông tin"),
+            profileSettingField(
+                () => OpenMyProfilePage(context),
+                Icons.person,
+                StringFormat.capitalize(
+                    AppLocalizations.of(context)!.updateProfile)),
             SizedBox(height: 5),
-            profileSettingField(() {}, Icons.notifications, "Thông báo"),
+            profileSettingField(
+                () => OpenBookedRoom(context),
+                Icons.bed,
+                StringFormat.capitalize(
+                    AppLocalizations.of(context)!.bookedRoom)),
             SizedBox(height: 5),
-            profileSettingField(() {}, Icons.shield, "Bảo mật"),
+            profileSettingField(
+                () {},
+                Icons.notifications,
+                StringFormat.capitalize(
+                    AppLocalizations.of(context)!.notification)),
             SizedBox(height: 5),
-            profileSettingField(() {}, Icons.info, "Trợ giúp"),
+            profileSettingField(
+                () {},
+                Icons.shield,
+                StringFormat.capitalize(
+                    AppLocalizations.of(context)!.security)),
             SizedBox(height: 5),
-            profileSettingField(() {}, Icons.dark_mode, "Chế độ nền tối"),
+            profileSettingField(() {}, Icons.info,
+                StringFormat.capitalize(AppLocalizations.of(context)!.help)),
             SizedBox(height: 5),
-            profileSettingField(() {
-              UserPreferences.clearUser();
-              setState(() {
-                GetUser();
-              });
-              FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (e) => AuthPage(),
-                  ),
-                  (route) => false);
-            }, Icons.logout, "Đăng xuất")
+            profileSettingField(
+                () {},
+                Icons.dark_mode,
+                StringFormat.capitalize(
+                    AppLocalizations.of(context)!.darkMode)),
+            SizedBox(height: 5),
+            profileSettingField(() => LogOut(context), Icons.logout,
+                StringFormat.capitalize(AppLocalizations.of(context)!.logout))
           ],
         ));
   }
@@ -197,6 +222,15 @@ class _AccountPageState extends State<AccountPage> {
       context,
       MaterialPageRoute(
         builder: (e) => const MyProfile(),
+      ),
+    );
+  }
+
+  void OpenBookedRoom(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (e) =>  BookedRoom(),
       ),
     );
   }

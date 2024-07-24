@@ -9,7 +9,7 @@ import 'package:booking_hotel/class/money_format.dart';
 import 'package:booking_hotel/class/string_format.dart';
 import 'package:booking_hotel/model/booking.dart';
 import 'package:booking_hotel/model/room.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/screens/BookingPage/success_page.dart';
@@ -54,7 +54,7 @@ class _BookingPageState extends State<BookingPage> {
       roominfo = data;
     });
     loggedInUser = await UserPreferences.getUser();
-    _bookedList = await getBookingById(widget.idRoom);
+    _bookedList = await getBookingByIdRoom(widget.idRoom);
 
     for (var item in _bookedList) {
       DateTime startDate = DateTime.parse(item.startDate);
@@ -504,7 +504,7 @@ class _BookingPageState extends State<BookingPage> {
                 Booking booking = new Booking(
                   startDate: _rangeStart!.toIso8601String(),
                   endDate: _rangeEnd!.toIso8601String(),
-                  bookingStatus: "Đã đặt",
+                  bookingStatus: "Unpaid",
                   bookingPaid: 0,
                   bookingPrice: data.price,
                   userId: loggedInUser!.userId!,
