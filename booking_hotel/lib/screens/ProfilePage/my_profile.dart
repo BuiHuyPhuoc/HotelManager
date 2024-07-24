@@ -1,4 +1,4 @@
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -46,7 +46,9 @@ class _MyProfileState extends State<MyProfile> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.surface,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(Icons.arrow_back),
             color: Theme.of(context).colorScheme.onSurface,
           ),

@@ -1,5 +1,5 @@
 import 'package:booking_hotel/class/api_respond.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/model/user.dart';

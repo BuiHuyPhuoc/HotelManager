@@ -1,10 +1,14 @@
+// import 'package:booking_hotel/admin/booked_manager/booked_room.dart';
+// import 'package:booking_hotel/class/shared_preferences.dart';
+// import 'package:booking_hotel/model/login_device.dart';
+// import 'package:booking_hotel/model/user.dart' as models;
+// import 'package:booking_hotel/components/CustomToast.dart';
+// import 'package:booking_hotel/model/user.dart';
+// import 'package:booking_hotel/screens/auth_page.dart';
+// import 'package:booking_hotel/screens/home_layout.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:booking_hotel/class/auth_service.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
-import 'package:booking_hotel/model/user.dart' as models;
-import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/model/user.dart';
-import 'package:booking_hotel/screens/home_layout.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
@@ -31,53 +35,57 @@ class _SignInScreenState extends State<SignInScreen> {
     super.dispose();
   }
 
-  void emailSignIn() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-    models.User? getAccount = await getUserByEmail(emailInputField.text);
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailInputField.text, password: passwordInputField.text);
-
-      if (getAccount == null) {
-        WarningToast(
-                context: context,
-                content: AppLocalizations.of(context)!.userNotFound)
-            .ShowToast();
-        await FirebaseAuth.instance.signOut();
-        return;
-      }
-      UserPreferences.saveUser(getAccount);
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (e) => const HomeLayout(),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (getAccount != null) {
-        UserPreferences.saveUser(getAccount);
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (e) => const HomeLayout(),
-          ),
-        );
-      } else {
-        WarningToast(
-          context: context,
-          content: AppLocalizations.of(context)!.userNotFound,
-        ).ShowToast();
-        Navigator.pop(context);
-      }
-    }
+  void emailSignIn(BuildContext context) async {
+    SignIn(context, emailInputField.text, passwordInputField.text);
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     });
+    // models.User? getAccount = await getUserByEmail(emailInputField.text);
+    // final getToken = await FirebaseMessaging.instance.getToken();
+    // try {
+    //   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //       email: emailInputField.text, password: passwordInputField.text);
+    //   if (getAccount == null) {
+    //     WarningToast(
+    //             context: context,
+    //             content: AppLocalizations.of(context)!.userNotFound)
+    //         .ShowToast();
+    //     await FirebaseAuth.instance.signOut();
+    //     return;
+    //   }
+    //   UserPreferences.saveUser(getAccount);
+      
+    //   //SaveDevice(LoginDevice(userId: getAccount.userId!, deviceToken: getToken!, loginStatus: true));
+    //   Navigator.pop(context);
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (e) => AuthPage(),
+    //     ),
+    //   );
+    // } catch (e) {
+    //   if (getAccount != null) {
+    //     UserPreferences.saveUser(getAccount);
+    //     //SaveDevice(LoginDevice(userId: getAccount.userId!, deviceToken: getToken!, loginStatus: true));
+    //     Navigator.pop(context);
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (e) => (getAccount.role == "Admin") ? BookedRoom() : HomeLayout(),
+    //       ),
+    //     );
+    //   } else {
+    //     WarningToast(
+    //       context: context,
+    //       content: AppLocalizations.of(context)!.userNotFound,
+    //     ).ShowToast();
+    //     Navigator.pop(context);
+    //   }
+    // }
   }
 
   @override
@@ -222,7 +230,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         onPressed: () async {
                           if (_formSignInKey.currentState!.validate()) {
-                            emailSignIn();
+                            emailSignIn(context);
                           }
                         },
                       ),

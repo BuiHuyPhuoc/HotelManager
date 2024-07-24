@@ -1,7 +1,8 @@
-import 'package:booking_hotel/class/shared_preferences.dart';
-import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/model/user.dart';
-import 'package:booking_hotel/screens/home_layout.dart';
+import 'package:booking_hotel/class/auth_service.dart';
+// import 'package:booking_hotel/class/shared_preferences.dart';
+// import 'package:booking_hotel/components/CustomToast.dart';
+// import 'package:booking_hotel/model/user.dart';
+// import 'package:booking_hotel/screens/auth_page.dart';
 import 'package:booking_hotel/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -150,22 +151,23 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
                   ),
                   onPressed: () async {
                     if (_formSignInKey.currentState!.validate()) {
-                      User? loggedInUser = await loginUser(
-                          emailInputField.text, passwordInputField.text);
-                      if (loggedInUser == null) {
-                        WarningToast(
-                                context: context,
-                                content: AppLocalizations.of(context)!.userNotFound)
-                            .ShowToast();
-                        return;
-                      }
-                      await UserPreferences.saveUser(loggedInUser);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (e) => const HomeLayout(),
-                        ),
-                      );
+                      SignIn(context, emailInputField.text, passwordInputField.text);
+                      // User? loggedInUser = await loginUser(
+                      //     emailInputField.text, passwordInputField.text);
+                      // if (loggedInUser == null) {
+                      //   WarningToast(
+                      //           context: context,
+                      //           content: AppLocalizations.of(context)!.userNotFound)
+                      //       .ShowToast();
+                      //   return;
+                      // }
+                      // await UserPreferences.saveUser(loggedInUser);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (e) => AuthPage(),
+                      //   ),
+                      // );
                     }
                   },
                 ),

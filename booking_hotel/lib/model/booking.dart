@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:booking_hotel/class/api_respond.dart';
+import 'package:booking_hotel/class/firebase_notification.dart';
+import 'package:booking_hotel/model/login_device.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -26,14 +28,15 @@ class Booking {
     required this.bookingPrice,
     required this.userId,
     required this.roomId,
-  }) : bookingDate = bookingDate ?? DateFormat('dd/MM/yyyy').format(DateTime.now());
+  }) : bookingDate =
+            bookingDate ?? DateFormat('dd/MM/yyyy').format(DateTime.now());
 
   // Tạo constructor fromJson
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
       bookingId: json['bookingId'],
-      startDate: json['startDate'] ,
-      endDate: json['endDate'] ,
+      startDate: json['startDate'],
+      endDate: json['endDate'],
       bookingDate: json['bookingDate'],
       bookingDiscount: (json['bookingDiscount'] as num).toDouble(),
       bookingStatus: json['bookingStatus'],
@@ -68,15 +71,15 @@ Future<ApiResponse> createBooking(Booking? booking) async {
   final url = Uri.parse('https://10.0.2.2:7052/api/Booking/CreateBookingOrder');
   final headers = {"Content-Type": "application/json"};
   final body = jsonEncode({
-      'startDate': booking.startDate,
-      'endDate': booking.endDate,
-      'bookingDate': DateTime.now().toIso8601String(),
-      'bookingDiscount': booking.bookingDiscount,
-      'bookingStatus': booking.bookingStatus,
-      'bookingPaid': booking.bookingPaid,
-      'bookingPrice': booking.bookingPrice,
-      'userId': booking.userId,
-      'roomId': booking.roomId,
+    'startDate': booking.startDate,
+    'endDate': booking.endDate,
+    'bookingDate': DateTime.now().toIso8601String(),
+    'bookingDiscount': booking.bookingDiscount,
+    'bookingStatus': booking.bookingStatus,
+    'bookingPaid': booking.bookingPaid,
+    'bookingPrice': booking.bookingPrice,
+    'userId': booking.userId,
+    'roomId': booking.roomId,
   });
 
   final response = await http.post(url, headers: headers, body: body);
@@ -88,16 +91,84 @@ Future<ApiResponse> createBooking(Booking? booking) async {
   }
 }
 
-Future<List<Booking>> getBookingById(String id) async {
+Future<List<Booking>> getBookingByIdRoom(String id) async {
   int _parseValue = int.parse(id);
-  final url = Uri.parse('https://10.0.2.2:7052/api/Room/GetBookingDateOfRoom?idRoom=${_parseValue}');
+  final url = Uri.parse(
+      'https://10.0.2.2:7052/api/Room/GetBookingDateOfRoom?idRoom=${_parseValue}');
   final response = await http.get(url);
 
   if (response.statusCode == 200) {
     List<dynamic> jsonList = jsonDecode(response.body);
-    List<Booking> _bookingList = jsonList.map((json) => Booking.fromJson(json)).toList();
+    List<Booking> _bookingList =
+        jsonList.map((json) => Booking.fromJson(json)).toList();
     return _bookingList;
   } else {
     throw Exception('Failed to load cities.');
+  }
+}
+
+Future<List<Booking>> getAllBookingRoom() async {
+  final url = Uri.parse('https://10.0.2.2:7052/api/Room/GetAllBookingRoom');
+  final response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    List<dynamic> jsonList = jsonDecode(response.body);
+    List<Booking> _bookingList =
+        jsonList.map((json) => Booking.fromJson(json)).toList();
+    return _bookingList;
+  } else {
+    throw Exception('Failed to load booking room.');
+  }
+}
+
+Future<ApiResponse> updateBookingStatus(Booking booking, String status) async {
+  final url =
+      Uri.parse("https://10.0.2.2:7052/api/Booking/${booking.bookingId}");
+  final headers = {"Content-Type": "application/json"};
+  final body = jsonEncode(status);
+  final response = await http.put(url, headers: headers, body: body);
+
+  if (response.statusCode == 200) {
+    final List<LoginDevice>? userDevice =
+        await GetListUserDevice(booking.userId.toString());
+    if (userDevice != null) {
+      for (var device in userDevice) {
+        FirebaseNotification.sendNotificationToSelectedDriver(
+            receiveToken: device.deviceToken,
+            title: "Thay đổi trạng thái phòng",
+            body:
+                "Mã vé ${booking.bookingId} đã được cập nhật. Vui lòng kiểm tra lại đơn vé đã đặt.");
+      }
+    } else {
+      return ApiResponse(status: true, message: "Cập nhật thành công, nhưng không có thiết bị gửi tin nhắn.");
+    }
+    return ApiResponse(status: true, message: "Update successfully");
+  } else {
+    return ApiResponse(status: false, message: response.body);
+  }
+}
+
+Future<Booking> getBookingByBookingId(String id) async {
+  final url = Uri.parse(
+      "https://10.0.2.2:7052/api/Booking/GetBookingByBookingId?bookingId=$id");
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    Booking booking = Booking.fromJson(jsonDecode(response.body));
+    return booking;
+  } else {
+    throw Exception(response.body);
+  }
+}
+
+Future<List<Booking>> getBookingByUserId(String id) async {
+  final url = Uri.parse(
+      "https://10.0.2.2:7052/api/Booking/GetBookingByUserId?userId=$id");
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    List<dynamic> jsonList = jsonDecode(response.body);
+    List<Booking> bookingList = jsonList.map((json) => Booking.fromJson(json)).toList();
+    return bookingList;
+  } else {
+    throw Exception(response.body);
   }
 }

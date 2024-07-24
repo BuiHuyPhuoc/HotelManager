@@ -81,13 +81,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: fullnameTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.userInfo('fullName');
+                            return AppLocalizations.of(context)!
+                                .userInfo('fullName');
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                            label:  Text(AppLocalizations.of(context)!.userInfo('fullName')),
-                            hintText: AppLocalizations.of(context)!.userInfo('fullName'),
+                            label: Text(AppLocalizations.of(context)!
+                                .userInfo('fullName')),
+                            hintText: AppLocalizations.of(context)!
+                                .userInfo('fullName'),
                             hintStyle: TextStyle(
                               color: Theme.of(context).colorScheme.onSurface,
                             ),
@@ -127,13 +130,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: emailTextField,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('email'));
+                            return AppLocalizations.of(context)!
+                                .pleaseInputField(AppLocalizations.of(context)!
+                                    .userInfo('email'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: Text(AppLocalizations.of(context)!.userInfo('email')),
-                          hintText: AppLocalizations.of(context)!.userInfo('email'),
+                          label: Text(
+                              AppLocalizations.of(context)!.userInfo('email')),
+                          hintText:
+                              AppLocalizations.of(context)!.userInfo('email'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -170,9 +177,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         controller: dateOfBirthTextField,
                         readOnly: true,
                         decoration: InputDecoration(
-                          labelText: AppLocalizations.of(context)!.userInfo('dateOfBirth'),
+                          labelText: AppLocalizations.of(context)!
+                              .userInfo('dateOfBirth'),
                           hintText: _selectedDate == null
-                              ? AppLocalizations.of(context)!.userInfo('dateOfBirth')
+                              ? AppLocalizations.of(context)!
+                                  .userInfo('dateOfBirth')
                               : DateFormat('dd/MM/yyyy')
                                   .format(_selectedDate!), // Format the date
                           hintStyle: TextStyle(
@@ -228,13 +237,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.phone,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('phoneNumber'));
+                            return AppLocalizations.of(context)!
+                                .pleaseInputField(AppLocalizations.of(context)!
+                                    .userInfo('phoneNumber'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: Text(AppLocalizations.of(context)!.userInfo('phoneNumber')),
-                          hintText: AppLocalizations.of(context)!.userInfo('phoneNumber'),
+                          label: Text(AppLocalizations.of(context)!
+                              .userInfo('phoneNumber')),
+                          hintText: AppLocalizations.of(context)!
+                              .userInfo('phoneNumber'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -276,13 +289,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('id'));
+                            return AppLocalizations.of(context)!
+                                .pleaseInputField(AppLocalizations.of(context)!
+                                    .userInfo('id'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: Text(AppLocalizations.of(context)!.userInfo('id')),
-                          hintText: AppLocalizations.of(context)!.userInfo('id'),
+                          label: Text(
+                              AppLocalizations.of(context)!.userInfo('id')),
+                          hintText:
+                              AppLocalizations.of(context)!.userInfo('id'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -324,13 +341,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         obscuringCharacter: '*',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return AppLocalizations.of(context)!.pleaseInputField(AppLocalizations.of(context)!.userInfo('password'));
+                            return AppLocalizations.of(context)!
+                                .pleaseInputField(AppLocalizations.of(context)!
+                                    .userInfo('password'));
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: Text(AppLocalizations.of(context)!.userInfo('password')),
-                          hintText: AppLocalizations.of(context)!.userInfo('password'),
+                          label: Text(AppLocalizations.of(context)!
+                              .userInfo('password')),
+                          hintText: AppLocalizations.of(context)!
+                              .userInfo('password'),
                           hintStyle: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
@@ -412,7 +433,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     userName: fullnameTextField.text,
                                     dateOfBirth: dateOfBirthTextField.text,
                                     userPhone: phoneNumberTextField.text,
-                                    userIdcard: CCCDTextField.text);
+                                    userIdcard: CCCDTextField.text,
+                                    role: "User");
                                 ApiResponse response = await createUser(user);
                                 Navigator.pop(context);
                                 if (!response.status) {
@@ -432,24 +454,33 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       builder: (context) {
                                         return AlertDialog(
                                           title: Text(
-                                              AppLocalizations.of(context)!.signUpSuccess),
+                                              AppLocalizations.of(context)!
+                                                  .signUpSuccess),
                                           content: SingleChildScrollView(
                                             child: ListBody(
                                               children: <Widget>[
-                                                Text(
-                                                    AppLocalizations.of(context)!.navigationTo(AppLocalizations.of(context)!.signIn)),
+                                                Text(AppLocalizations.of(
+                                                        context)!
+                                                    .navigationTo(
+                                                        AppLocalizations.of(
+                                                                context)!
+                                                            .signIn)),
                                               ],
                                             ),
                                           ),
                                           actions: <Widget>[
                                             TextButton(
-                                              child: Text(AppLocalizations.of(context)!.choice('cancel')),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .choice('cancel')),
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
                                             ),
                                             TextButton(
-                                              child: Text(AppLocalizations.of(context)!.choice('accept')),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .choice('accept')),
                                               onPressed: () {
                                                 Navigator.pushReplacement(
                                                   context,
@@ -476,8 +507,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             } else if (!agreePersonalData) {
                               WarningToast(
                                 context: context,
-                                content:
-                                    AppLocalizations.of(context)!.pleaseAgreeTerms,
+                                content: AppLocalizations.of(context)!
+                                    .pleaseAgreeTerms,
                                 duration: Duration(seconds: 2),
                               ).ShowToast();
                               return;
@@ -515,7 +546,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           Text(
                             AppLocalizations.of(context)!.haveAccount,
                           ),
-                          SizedBox(width: 4,),
+                          SizedBox(
+                            width: 4,
+                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
