@@ -52,6 +52,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 .makePayment(widget.booking.bookingPrice.toInt());
             if (result) {
               createBooking(widget.booking);
+              
               Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => SuccessPage()),

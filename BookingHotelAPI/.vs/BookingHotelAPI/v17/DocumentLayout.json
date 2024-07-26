@@ -3,65 +3,8 @@
   "WorkspaceRootPath": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\dbbookinghotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\dbbookinghotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\vnpayapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\vnpayapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:vnpaylibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\hotelcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\roomcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\dbbookinghotelcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -72,16 +15,60 @@
       "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\favorite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\hotel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\controllers\\vnpayapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:controllers\\vnpayapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:3:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:3:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:3:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:3:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\logindevice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:class\\dateonlyjsonconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\devicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|d:\\app develop\\hotel manager\\bookinghotelapi\\models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{70E8A765-C5F8-4829-9D0A-2DCC6FD779C0}|BookingHotelAPI.csproj|solutionrelative:models\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -111,7 +98,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "DateOnlyJsonConverter.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Class\\DateOnlyJsonConverter.cs",
               "RelativeDocumentMoniker": "Class\\DateOnlyJsonConverter.cs",
@@ -123,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Hotel.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Hotel.cs",
               "RelativeDocumentMoniker": "Models\\Hotel.cs",
@@ -135,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "LoginDevice.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\LoginDevice.cs",
               "RelativeDocumentMoniker": "Models\\LoginDevice.cs",
@@ -159,7 +146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "DeviceController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\DeviceController.cs",
               "RelativeDocumentMoniker": "Controllers\\DeviceController.cs",
@@ -172,19 +159,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BookingController.cs",
-              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\BookingController.cs",
-              "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
-              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\BookingController.cs",
-              "RelativeToolTip": "Controllers\\BookingController.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAQwGsAAAAjAAAA",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAQwH4AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-19T17:27:43.254Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "Account.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Account.cs",
               "RelativeDocumentMoniker": "Models\\Account.cs",
@@ -192,12 +179,11 @@
               "RelativeToolTip": "Models\\Account.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAuwAkAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-06T07:35:46.613Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-06T07:35:46.613Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "RoomController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\RoomController.cs",
               "RelativeDocumentMoniker": "Controllers\\RoomController.cs",
@@ -209,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Favorite.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Favorite.cs",
               "RelativeDocumentMoniker": "Models\\Favorite.cs",
@@ -221,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "DbBookingHotelContext.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\DbBookingHotelContext.cs",
               "RelativeDocumentMoniker": "Models\\DbBookingHotelContext.cs",
@@ -233,7 +219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Hotel.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Hotel.cs",
               "RelativeDocumentMoniker": "Models\\Hotel.cs",
@@ -245,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 12,
               "Title": "LoginDevice.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\LoginDevice.cs",
               "RelativeDocumentMoniker": "Models\\LoginDevice.cs",
@@ -257,7 +243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 13,
               "Title": "Favorite.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Favorite.cs",
               "RelativeDocumentMoniker": "Models\\Favorite.cs",
@@ -269,7 +255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 14,
               "Title": "DeviceController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\DeviceController.cs",
               "RelativeDocumentMoniker": "Controllers\\DeviceController.cs",
@@ -277,12 +263,11 @@
               "RelativeToolTip": "Controllers\\DeviceController.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAQwBsAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-20T06:25:22.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-20T06:25:22.999Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 15,
               "Title": "BookingController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\BookingController.cs",
               "RelativeDocumentMoniker": "Controllers\\BookingController.cs",
@@ -290,24 +275,11 @@
               "RelativeToolTip": "Controllers\\BookingController.cs",
               "ViewState": "AQIAAE4AAAAAAAAAAAAQwGMAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T17:27:43.254Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-19T17:27:43.254Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Account.cs",
-              "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Account.cs",
-              "RelativeDocumentMoniker": "Models\\Account.cs",
-              "ToolTip": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Models\\Account.cs",
-              "RelativeToolTip": "Models\\Account.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T19:41:04.451Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 16,
               "Title": "RoomController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\RoomController.cs",
               "RelativeDocumentMoniker": "Controllers\\RoomController.cs",
@@ -315,12 +287,11 @@
               "RelativeToolTip": "Controllers\\RoomController.cs",
               "ViewState": "AQIAALsAAAAAAAAAAAAuwM4AAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-19T18:11:05.587Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-19T18:11:05.587Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "UserController.cs",
               "DocumentMoniker": "D:\\APP DEVELOP\\Hotel Manager\\BookingHotelAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
