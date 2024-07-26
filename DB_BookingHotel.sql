@@ -123,7 +123,7 @@ insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) val
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Fenofibrate', N'6801 Fisk Point', N'Yantian', '7821634123');
 insert into [Hotel] ([HotelName], [HotelAddress], [HotelCity], [HotelPhone]) values (N'Integrilin', N'88 Eliot Trail', N'Błędów', '7549067103');
 
-insert into [Room] values (N'Thoáng mát sạch sẽ', 4, 250000, 250000, 'hotel.jpg', 1, 1);
+insert into [Room] values (N'Thoáng mát sạch sẽ', 4, 250000, 200000, 'hotel.jpg', 1, 1);
 insert into [Room] values (N'Thoáng mát sạch sẽ', 6, 500000, 500000, 'hotel2.jpg', 1, 1);
 insert into [Room] values (N'Thoáng mát sạch sẽ', 7, 760000, 760000, 'hotel.jpg', 2, 1);
 insert into [Room] values (N'Thoáng mát sạch sẽ', 4, 220000, 220000, 'hotel2.jpg', 2, 1);
@@ -152,16 +152,6 @@ insert into [Favorite] values (4, 5, getdate())
 insert into [Favorite] values (4, 6, getdate())
 insert into [Favorite] values (4, 7, getdate())
 
-update Room
-set DiscountPrice = 200000
-where RoomID = 1
-
 insert into [Booking] values ('20240801', '20240802', 'Unpaid', 0, 200000, 200000, 11, 1, getdate())
 insert into [Booking] values ('20240803', '20240805', 'Unpaid', 0, 400000, 400000, 11, 1, getdate())
 insert into [Booking] values ('20240807', '20240810', 'Unpaid', 0, 800000, 800000, 11, 2, getdate())
-
-select * from booking 
-select * from [User]
-select * from [LoginDevice]
-
-select * from LoginDevice
