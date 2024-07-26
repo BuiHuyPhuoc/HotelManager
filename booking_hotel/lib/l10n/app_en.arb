@@ -1,0 +1,174 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "userNotFound": "User is not found!",
+  "@userNotFound": {
+    "description": "Warning for user not found!"
+  },
+  "welcomeBack": "Welcome back!",
+  "pleaseInputField": "Please fill in {message} field!",
+  "@pleaseInputField": {
+    "description": "Warning user to fill in required field!",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "empty"
+      }
+    }
+  },
+  "userInfo": "{info, select, email{Email} password{Password} fullName{Full name} dateOfBirth{Date of birth} phoneNumber{Phone number} id{Identification} other{orther}}",
+  "@userInfo": {
+    "description": "User's information",
+    "placeholders": {
+      "info": {
+        "type": "String"
+      }
+    }
+  },
+  "choice": "{choices, select, cancel{Cancel} accept{Accept} other{Other}}",
+  "@choice": {
+    "description": "User's choices",
+    "placeholders": {
+      "choices": {
+        "type": "String"
+      }
+    }
+  },
+  "signUpHere": "Sign up here!",
+  "@signUpHere": {
+    "description": "Label of sign up page!"
+  },
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {
+    "description": "Label of forgot password!"
+  },
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Label of sign in text!"
+  },
+  "signUp": "Sign Up",
+  "@signUp": {
+    "description": "Label of sign up text!"
+  },
+  "signInWith": "Sign in with",
+  "@signInWith": {
+    "description": "Sign in with text"
+  },
+  "dontHaveAccount": "Don''t have account?",
+  "@dontHaveAccount": {
+    "description": "Dont have account text"
+  },
+  "agreeTerms": "I agree to the terms and services.",
+  "@agreeTerms": {
+    "description": "Agree with the terms and services text"
+  },
+  "haveAccount": "Already have an account?",
+  "@haveAccount": {
+    "description": "Have account text"
+  },
+  "pleaseAgreeTerms": "Please agree with the terms and services!",
+  "@pleaseAgreeTerms": {
+    "description": "Warning about agree with the terms and services."
+  },
+  "signUpSuccess": "Sign up success.",
+  "@signUpSuccess": {
+    "description": "Notify about create accout success"
+  },
+  "navigationTo": "Go to {page} page?",
+  "@navigationTo": {
+    "description": "Notify about navigating to another page",
+    "placeholders": {
+      "page": {
+        "type": "String",
+        "example": "empty"
+      }
+    }
+  },
+  "homePage": "Home",
+  "@homePage": {
+    "description": "Label of main page"
+  },
+  "allPage": "All",
+  "@allPage": {
+    "description": "Label of all page"
+  },
+  "favoritePage": "Favorite",
+  "@favoritePage": {
+    "description": "Label of favorite page"
+  },
+  "settingPage": "Setting",
+  "@settingPage": {
+    "description": "Label of setting page"
+  },
+  "homePageLogan1": "From ever",
+  "homePageLogan2": "Where you go!",
+  "pressAgainToExit": "Press back again to exit!",
+  "bestHotelLabel" : "Best from each hotel",
+  "currentSale" : "Current sale rooms",
+  "likeVote" : "likes",
+  "hotel" : "Hotel",
+  "city": "City",
+  "all": "All",
+  "byHotel" : "By hotel",
+  "byCity": "By city",
+  "toManageAccount" : "To manage your account!",
+  "darkMode" : "Dark mode",
+  "roomDetailLabel" : "About the room",
+  "likeRoom" : "Like this room?",
+  "likedRoom" : "Liked",
+  "description" : "Description",
+  "amenities": "Amenities",
+  "day" : "day",
+  "bookNow": "book now",
+  "requiredLogin" : "You must login first",
+  "bookingDetail" : "Booking Detail",
+  "hour" : "hour",
+  "hotelAddress": "hotel address",
+  "idRoom": "room number",
+  "priceTotal" : "total",
+  "clickToLogin" : "click here to login",
+  "bookingSubmit" : "submit",
+  "warningBookedRoom": "room''s already booked" ,
+  "warningDateInvalid" : "Choose the checkin and checkout day",
+  "bookingSucess": "sucessful booking",
+  "subBookingSuccess": "We already save your booking room.",
+  "bookingRooms": "Booking Rooms",
+  "bookingStatus": "{ty, select, Unpaid{Unpaid} Paid{Paid} Cancelled{Cancelled} other{Other}}",
+  "@bookingStatus": {
+    "description": "Statement of booking status",
+    "placeholders": {
+      "ty": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelTicket": "cancel ticket",
+  "undoTicket" : "undo ticket",
+  "viewTicket": "view ticket",
+  "cusInfomation" : "customer information",
+  "@cusInfomation": {
+    "description": "Information of customer"
+  },
+  "bookingInfomation" : "booking information",
+  "bookingDate" : "booking date",
+  "updateRoomStatusSuccess" : "Update room status successfully",
+  "logout": "logout",
+  "logoutWarning" : "do you want to logout?",
+  "notification": "notification",
+  "security": "security",
+  "help": "help",
+  "updateProfile" : "update profile",
+  "lostInternetConnection": "lost internet connection",
+  "checkInternetConnection": "Check internet connection and try later.",
+  "bookedRoom" : "Booked room",
+  "youDontHaveAnyBookedRoom": "You don''t have any booked room.",
+  "backButton": "Turn Back",
+  "choosePaymentMethod": "Choose payment method",
+  "successPayment": "Payment was successful.",
+  "failPayment": "Payment was fail.",
+  "featureIsUpdating": "This feature is updating.",
+  "errorWarning": "Some errors occured."
+}

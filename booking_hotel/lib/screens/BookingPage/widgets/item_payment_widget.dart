@@ -7,10 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 class PaymentItemWidget extends StatelessWidget {
   PaymentItemWidget(
       {super.key,
-      required this.isPicked,
+      required this.imagePath,
       required this.paymentName,
       this.onTap});
-  bool isPicked;
+      String imagePath;
   String paymentName;
   VoidCallback? onTap;
   @override
@@ -25,10 +25,14 @@ class PaymentItemWidget extends StatelessWidget {
         child: Row(
           children: [
             CustomImageView(
-              imagePath: "images/avatar.png",
+              imagePath: imagePath,
               height: 40,
               width: 40,
               radius: BorderRadius.circular(50),
+              border: Border.all(
+                width: 2,
+                color: Colors.white
+              ),
             ),
             Expanded(
               child: Padding(
@@ -42,19 +46,6 @@ class PaymentItemWidget extends StatelessWidget {
                 ),
               ),
             ),
-           SizedBox(width: 10,),
-            Container(
-              height: 20,
-              width: 20,
-              margin: EdgeInsets.only(top: 6, right: 8, bottom: 6),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                      color: Theme.of(context).colorScheme.onPrimary, width: 3),
-                  color: (isPicked)
-                      ? Theme.of(context).colorScheme.onPrimary
-                      : Colors.transparent),
-            )
           ],
         ),
       ),

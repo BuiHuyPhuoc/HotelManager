@@ -35,7 +35,13 @@ class SuccessPage extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
+<<<<<<< Updated upstream
                       "Chúng tôi đã ghi nhận đơn đặt của bạn.",
+=======
+                      AppLocalizations.of(context)!
+                          .subBookingSuccess
+                          .toUpperCase(),
+>>>>>>> Stashed changes
                       textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
@@ -50,10 +56,7 @@ class SuccessPage extends StatelessWidget {
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .surface
-                      .withOpacity(0.8),
+                  color: Theme.of(context).colorScheme.surface.withOpacity(0.8),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Center(
@@ -67,11 +70,12 @@ class SuccessPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
                     builder: (e) => const HomeLayout(),
                   ),
+                  (Route<dynamic> route) => false,
                 );
               },
             ),
