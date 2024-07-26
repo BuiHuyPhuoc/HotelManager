@@ -133,7 +133,7 @@
   "bookingSubmit" : "submit",
   "warningBookedRoom": "room''s already booked" ,
   "warningDateInvalid" : "Choose the checkin and checkout day",
-    "bookingSucess": "sucessful booking",
+  "bookingSucess": "sucessful booking",
   "subBookingSuccess": "We already save your booking room.",
   "bookingRooms": "Booking Rooms",
   "bookingStatus": "{ty, select, Unpaid{Unpaid} Paid{Paid} Cancelled{Cancelled} other{Other}}",
@@ -164,5 +164,11 @@
   "lostInternetConnection": "lost internet connection",
   "checkInternetConnection": "Check internet connection and try later.",
   "bookedRoom" : "Booked room",
-  "youDontHaveAnyBookedRoom": "You don''t have any booked room."
+  "youDontHaveAnyBookedRoom": "You don''t have any booked room.",
+  "backButton": "Turn Back",
+  "choosePaymentMethod": "Choose payment method",
+  "successPayment": "Payment was successful.",
+  "failPayment": "Payment was fail.",
+  "featureIsUpdating": "This feature is updating.",
+  "errorWarning": "Some errors occured."
 }

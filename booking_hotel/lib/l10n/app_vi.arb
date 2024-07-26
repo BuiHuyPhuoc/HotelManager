@@ -81,5 +81,11 @@
   "lostInternetConnection": "mất kết nối internet",
   "checkInternetConnection": "vui lòng kiểm tra lại đường truyền và thử lại sau",
   "bookedRoom": "Phòng đã đặt",
-  "youDontHaveAnyBookedRoom": "Bạn chưa có đơn đặt phòng nào."
+  "youDontHaveAnyBookedRoom": "Bạn chưa có đơn đặt phòng nào.",
+  "backButton": "Quay trở về",
+  "choosePaymentMethod": "Chọn phương thức thanh toán.",
+  "successPayment": "Thanh toán thành công.",
+  "failPayment": "Thanh toán thất bại.",
+  "featureIsUpdating": "Tính năng đang được cập nhật.",
+  "errorWarning": "Có lỗi xuất hiện."
 }

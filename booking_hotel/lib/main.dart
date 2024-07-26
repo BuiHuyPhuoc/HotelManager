@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:booking_hotel/admin/booked_manager/manager_booked_room.dart';
+import 'package:booking_hotel/class/consts.dart';
 import 'package:booking_hotel/class/firebase_notification.dart';
 import 'package:booking_hotel/class/language_preferences.dart';
 import 'package:booking_hotel/class/string_format.dart';
@@ -16,6 +17,7 @@ import 'package:booking_hotel/widgets/test_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'firebase_options.dart';
@@ -38,12 +40,17 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() async {
+Future<void> _setUp() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Stripe.publishableKey = stripePublishableKey;
+}
+
+void main() async {
+  await _setUp();
   runApp(
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
@@ -86,21 +93,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     _loadLocale();
   }
 
-  // void ChangeAccountStamentBeforeExitApp() async {
-  //   User? getUser = await UserPreferences.getUser();
-  //   String? deviceToken = await FirebaseMessaging.instance.getToken();
-  //   if (getUser != null) {
-  //     await SaveDevice(LoginDevice(
-  //         userId: getUser.userId!,
-  //         deviceToken: deviceToken!,
-  //         loginStatus: false));
-  //   }
-  // }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    //ChangeAccountStamentBeforeExitApp();
     super.dispose();
   }
 

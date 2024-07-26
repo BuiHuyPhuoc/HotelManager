@@ -39,7 +39,8 @@ dependencies:
   googleapis_auth: ^1.6.0
   get: ^4.6.6
   dio: ^5.5.0+1
-  
+  flutter_stripe: ^10.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

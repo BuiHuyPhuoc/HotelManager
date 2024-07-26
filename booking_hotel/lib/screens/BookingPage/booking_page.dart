@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:collection';
-import 'package:booking_hotel/class/api_respond.dart';
 import 'package:booking_hotel/class/enum_variable.dart';
 import 'package:booking_hotel/class/event.dart';
 import 'package:booking_hotel/class/money_format.dart';
@@ -12,7 +11,7 @@ import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/screens/BookingPage/success_page.dart';
+import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -500,7 +499,7 @@ class _BookingPageState extends State<BookingPage> {
                       .ShowToast();
                   return;
                 }
-
+                // // Setup and create booking
                 Booking booking = new Booking(
                   startDate: _rangeStart!.toIso8601String(),
                   endDate: _rangeEnd!.toIso8601String(),
@@ -511,20 +510,12 @@ class _BookingPageState extends State<BookingPage> {
                   bookingDiscount: data.discountPrice,
                   roomId: data.roomId,
                 );
-                ApiResponse response = await createBooking(booking);
-                if (response.status) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (context) => SuccessPage()),
-                      (Route<dynamic> route) => false);
-                } else {
-                  WarningToast(
-                    context: context,
-                    content: response.message,
-                    duration: Duration(seconds: 1),
-                  ).ShowToast();
-                  return;
-                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (e) => PaymentPage(booking: booking),
+                  ),
+                );
               });
             },
             child: Container(
