@@ -1,8 +1,5 @@
 // ignore_for_file: unused_import
 
-<<<<<<< Updated upstream
-import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
-=======
 import 'dart:async';
 import 'dart:io';
 import 'package:booking_hotel/admin/booked_manager/manager_booked_room.dart';
@@ -27,16 +24,12 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
->>>>>>> Stashed changes
 import 'package:booking_hotel/screens/auth_page.dart';
 import 'package:booking_hotel/screens/home_layout.dart';
-import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:booking_hotel/theme/theme_provider.dart';
-import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:provider/provider.dart';
+import 'package:booking_hotel/screens/signin_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -53,14 +46,6 @@ Future<void> _setUp() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-<<<<<<< Updated upstream
-  runApp(ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), child: const MyApp()));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-=======
   Stripe.publishableKey = stripePublishableKey;
 }
 
@@ -113,20 +98,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
->>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {
+    Get.put(NetworkController());
     return Consumer<ThemeProvider>(builder: (context, ThemeProvider, child) {
-<<<<<<< Updated upstream
-      return MaterialApp(
-=======
       return GetMaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: Get.locale,
-        fallbackLocale: Locale('en'),
->>>>>>> Stashed changes
+        locale: Get.locale, 
+        fallbackLocale: Locale(
+            'en'), 
         debugShowCheckedModeBanner: false,
         home: AuthPage(),
         theme: ThemeProvider.themeData,

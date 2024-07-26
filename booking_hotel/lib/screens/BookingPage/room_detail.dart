@@ -1,5 +1,5 @@
 import 'package:booking_hotel/class/api_respond.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/model/user.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class RoomDetail extends StatefulWidget {
@@ -63,7 +64,7 @@ class _RoomDetailState extends State<RoomDetail> {
           icon: Icon(Icons.arrow_back_ios),
         ),
         title: Text(
-          "CHI TIẾT PHÒNG",
+          AppLocalizations.of(context)!.roomDetailLabel,
           style:
               GoogleFonts.montserrat(fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -127,8 +128,8 @@ class _RoomDetailState extends State<RoomDetail> {
                                 ),
                                 Text(
                                   (!isFavorite)
-                                      ? "Chọn yêu thích"
-                                      : "Đã yêu thích",
+                                      ? AppLocalizations.of(context)!.likeRoom
+                                      : AppLocalizations.of(context)!.likedRoom,
                                   style: GoogleFonts.montserrat(fontSize: 18),
                                 )
                               ],
@@ -196,7 +197,7 @@ class _RoomDetailState extends State<RoomDetail> {
                           height: 10,
                         ),
                         Text(
-                          "Chi tiết",
+                          AppLocalizations.of(context)!.description,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
@@ -211,7 +212,7 @@ class _RoomDetailState extends State<RoomDetail> {
                           height: 10,
                         ),
                         Text(
-                          "Dịch vụ tiện nghi",
+                          AppLocalizations.of(context)!.amenities,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
@@ -297,7 +298,7 @@ class _RoomDetailState extends State<RoomDetail> {
                                       Theme.of(context).colorScheme.onSurface),
                             ),
                             TextSpan(
-                              text: '\/ngày',
+                              text: '\/' + AppLocalizations.of(context)!.day,
                               style: TextStyle(
                                   color:
                                       Theme.of(context).colorScheme.onSurface,
@@ -320,14 +321,19 @@ class _RoomDetailState extends State<RoomDetail> {
                         ),
                         child: Center(
                           child: Text(
-                            "ĐẶT NGAY",
+                            AppLocalizations.of(context)!.bookNow.toUpperCase(),
                             style: TextStyle(
+                             
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 18),
                           ),
                         ),
                       ),
                       onTap: () {
+                        if (loggedInUser == null) {
+                          WarningToast(context: context, content: "Bạn cần phải đăng nhập để đặt phòng").ShowToast();
+                          return;
+                        }
                         Navigator.push(
                           context,
                           MaterialPageRoute(

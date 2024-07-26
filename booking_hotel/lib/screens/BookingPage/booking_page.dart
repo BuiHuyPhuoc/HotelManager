@@ -5,9 +5,10 @@ import 'dart:collection';
 import 'package:booking_hotel/class/enum_variable.dart';
 import 'package:booking_hotel/class/event.dart';
 import 'package:booking_hotel/class/money_format.dart';
+import 'package:booking_hotel/class/string_format.dart';
 import 'package:booking_hotel/model/booking.dart';
 import 'package:booking_hotel/model/room.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
+import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingPage extends StatefulWidget {
   BookingPage({super.key, required this.idRoom});
@@ -51,7 +53,7 @@ class _BookingPageState extends State<BookingPage> {
       roominfo = data;
     });
     loggedInUser = await UserPreferences.getUser();
-    _bookedList = await getBookingById(widget.idRoom);
+    _bookedList = await getBookingByIdRoom(widget.idRoom);
 
     for (var item in _bookedList) {
       DateTime startDate = DateTime.parse(item.startDate);
@@ -175,7 +177,9 @@ class _BookingPageState extends State<BookingPage> {
                         child: Align(
                           alignment: Alignment.topCenter,
                           child: Text(
-                            "Thông Tin Đặt Phòng",
+                            AppLocalizations.of(context)!
+                                .bookingDetail
+                                .toUpperCase(),
                             style: GoogleFonts.montserrat(
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.onSurface,
@@ -356,7 +360,7 @@ class _BookingPageState extends State<BookingPage> {
                   ? [
                       Center(
                         child: Text(
-                          "VUI LÒNG ĐĂNG NHẬP TRƯỚC KHI THỰC HIỆN ĐẶT PHÒNG",
+                          AppLocalizations.of(context)!.requiredLogin,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.surface),
@@ -365,7 +369,8 @@ class _BookingPageState extends State<BookingPage> {
                       Center(
                           child: InkWell(
                         child: Text(
-                          "Nhấn vào đây để đăng nhập",
+                          StringFormat.capitalizeEachWord(
+                              AppLocalizations.of(context)!.clickToLogin),
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               color: Theme.of(context).colorScheme.surface),
@@ -384,7 +389,9 @@ class _BookingPageState extends State<BookingPage> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          "ĐƠN ĐẶT",
+                          AppLocalizations.of(context)!
+                              .bookingDetail
+                              .toUpperCase(),
                           style: GoogleFonts.montserrat(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -396,7 +403,7 @@ class _BookingPageState extends State<BookingPage> {
                         height: 5,
                       ),
                       fieldInfo(
-                          "Ngày checkin: ",
+                          "Checkin: ",
                           (_rangeStart != null)
                               ? DateFormat('dd/MM/yyyy').format(_rangeStart!)
                               : 'Trống.'),
@@ -404,35 +411,57 @@ class _BookingPageState extends State<BookingPage> {
                         height: 5,
                       ),
                       fieldInfo(
-                          "Ngày checkout: ",
+                          "Checkout: ",
                           (_rangeEnd != null)
                               ? DateFormat('dd/MM/yyyy').format(_rangeEnd!)
                               : 'Trống.'),
                       SizedBox(
                         height: 5,
                       ),
-                      fieldInfo("Giờ checkin: ", "14:00 chiều"),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      fieldInfo("Giờ checkout: ", "12:00 trưa"),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      fieldInfo("Địa chỉ khách sạn: ", room.hotelAddress),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      fieldInfo("Mã phòng: ", room.roomId.toString()),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      fieldInfo("Họ tên người đặt: ", loggedInUser!.userName),
+                      fieldInfo(
+                          StringFormat.capitalize(
+                                  AppLocalizations.of(context)!.hour) +
+                              " checkin: ",
+                          "14:00 PM"),
                       SizedBox(
                         height: 5,
                       ),
                       fieldInfo(
-                          "Tiền phòng: ",
+                          StringFormat.capitalize(
+                                  AppLocalizations.of(context)!.hour) +
+                              " checkout: ",
+                          "12:00 PM"),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo(
+                          StringFormat.capitalize(
+                                  AppLocalizations.of(context)!.hotelAddress) +
+                              ": ",
+                          room.hotelAddress),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo(
+                          StringFormat.capitalize(
+                                  AppLocalizations.of(context)!.idRoom) +
+                              ": ",
+                          room.roomId.toString()),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo(
+                          StringFormat.capitalize(AppLocalizations.of(context)!
+                                  .userInfo('fullName')) +
+                              ": ",
+                          loggedInUser!.userName),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      fieldInfo(
+                          StringFormat.capitalize(
+                                  AppLocalizations.of(context)!.priceTotal) +
+                              ": ",
                           (_rangeStart != null && _rangeEnd != null)
                               ? formatMoney(room.discountPrice *
                                   _rangeEnd!.difference(_rangeStart!).inDays)
@@ -455,7 +484,9 @@ class _BookingPageState extends State<BookingPage> {
               room.then((data) async {
                 if (_rangeStart == null || _rangeEnd == null) {
                   WarningToast(
-                          context: context, content: "Chưa chọn ngày đi và về.")
+                          context: context,
+                          content: StringFormat.capitalize(
+                              AppLocalizations.of(context)!.warningDateInvalid))
                       .ShowToast();
                   return;
                 }
@@ -463,7 +494,8 @@ class _BookingPageState extends State<BookingPage> {
                 if (!_checkSelectedDate()) {
                   WarningToast(
                           context: context,
-                          content: "Lỗi vi phạm ngày đặt phòng.")
+                          content: StringFormat.capitalize(
+                              AppLocalizations.of(context)!.warningBookedRoom))
                       .ShowToast();
                   return;
                 }
@@ -471,7 +503,7 @@ class _BookingPageState extends State<BookingPage> {
                 Booking booking = new Booking(
                   startDate: _rangeStart!.toIso8601String(),
                   endDate: _rangeEnd!.toIso8601String(),
-                  bookingStatus: "Đã đặt",
+                  bookingStatus: "Unpaid",
                   bookingPaid: 0,
                   bookingPrice: data.price,
                   userId: loggedInUser!.userId!,
@@ -495,7 +527,7 @@ class _BookingPageState extends State<BookingPage> {
               ),
               child: Center(
                 child: Text(
-                  "XÁC NHẬN ĐẶT",
+                  AppLocalizations.of(context)!.bookingSubmit.toUpperCase(),
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,

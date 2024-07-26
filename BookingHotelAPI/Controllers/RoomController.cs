@@ -15,29 +15,7 @@ namespace BookingHotelAPI.Controllers
         [Route("GetRoomsDefault")]
         public IActionResult ShowRoomsDefault()
         {
-            //var rooms = from h in db.Hotels.ToList()
-            //            join r in (
-            //                from room in db.Rooms.ToList()
-            //                group room by room.HotelId into roomGroup
-            //                select new { HotelID = roomGroup.Key, MinRoomID = roomGroup.Min(r => r.RoomId) }
-            //            ) on h.HotelId equals r.HotelID
-            //            join room in db.Rooms.ToList() on r.MinRoomID equals room.RoomId
-            //            select new
-            //            {
-            //                h.HotelName,
-            //                h.HotelCity,
-            //                h.HotelAddress,
-            //                h.HotelPhone,
-            //                room.RoomId,
-            //                room.RoomDescription,
-            //                room.NumberPeople,
-            //                room.Price,
-            //                room.DiscountPrice,
-            //                room.RoomImage,
-            //                room.HotelId,
-            //                room.RoomValid
-            //            }; 
-            //return Ok(rooms);
+        
             // Linq query tương ứng
             var query = from r in db.Rooms
                         join h in db.Hotels on r.HotelId equals h.HotelId
@@ -298,6 +276,29 @@ namespace BookingHotelAPI.Controllers
                             b.BookingDate
                         };
             return Ok(rooms);
+        }
+
+        [HttpGet]
+        [Route("GetAllBookingRoom")]
+        public IActionResult GetAllBookingRoom()
+        {
+            var bookingRoom = from r in db.Rooms
+                              join h in db.Hotels on r.HotelId equals h.HotelId
+                              join b in db.Bookings on r.RoomId equals b.RoomId
+                              select new
+                              {
+                                  b.BookingId,
+                                  b.StartDate,
+                                  b.EndDate,
+                                  b.BookingStatus,
+                                  b.BookingPaid,
+                                  b.BookingPrice,
+                                  b.BookingDiscount,
+                                  b.UserId,
+                                  b.RoomId,
+                                  b.BookingDate
+                              };
+            return Ok(bookingRoom);
         }
 
     }

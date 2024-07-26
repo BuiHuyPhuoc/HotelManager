@@ -4,6 +4,7 @@ import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/widgets/withoutlike_promo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AllRoomPage extends StatefulWidget {
   const AllRoomPage({super.key});
@@ -14,6 +15,7 @@ class AllRoomPage extends StatefulWidget {
 
 class _AllRoomPageState extends State<AllRoomPage> {
   List<String> categories = ["Tất cả", "Theo khách sạn", "Theo thành phố"];
+
   List<Room> _rooms = [];
   List<Hotel> _hotels = [];
   int _value = 0;
@@ -39,6 +41,8 @@ class _AllRoomPageState extends State<AllRoomPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> categoriesTranslate = [AppLocalizations.of(context)!.all, AppLocalizations.of(context)!.byHotel, AppLocalizations.of(context)!.byCity];
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -63,7 +67,7 @@ class _AllRoomPageState extends State<AllRoomPage> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).colorScheme.onPrimary),
-                            label: Text(categories[index]),
+                            label: Text(categoriesTranslate[index]),
                             selected: _value == index,
                             onSelected: (bool selected) {
                               setState(() {
@@ -137,8 +141,8 @@ class _AllRoomPageState extends State<AllRoomPage> {
                         ? [
                             Text(
                               (cateType.categoryType == Category.Hotel)
-                                  ? "Khách sạn " + _hotels[index].hotelName
-                                  : "Thành phố " + _hotels[index].hotelCity,
+                                  ? AppLocalizations.of(context)!.hotel + " " + _hotels[index].hotelName
+                                  : AppLocalizations.of(context)!.city + " " + _hotels[index].hotelCity,
                               style: GoogleFonts.montserrat(
                                   color: Theme.of(context).colorScheme.onSurface,
                                   fontWeight: FontWeight.bold,
@@ -224,36 +228,4 @@ class _AllRoomPageState extends State<AllRoomPage> {
       ),
     );
   }
-
-  // Widget _showAllRooms() {
-  //   return Expanded(
-  //     child: FutureBuilder<List<Room>>(
-  //       future: rooms,
-  //       builder: (context, snapshot) {
-  //         if (snapshot.connectionState == ConnectionState.waiting) {
-  //           return Center(child: CircularProgressIndicator());
-  //         } else if (snapshot.hasError) {
-  //           return Center(child: Text('Error: ${snapshot.error}'));
-  //         } else if (snapshot.hasData) {
-  //           List<Room> _getRooms = snapshot.data!;
-  //           // Get only rooms match the city's name
-  //           return GridView.builder(
-  //             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //               crossAxisCount: 2, // Số cột
-  //               crossAxisSpacing: 10.0, // Khoảng cách ngang giữa các ô
-  //               mainAxisSpacing: 10.0, // Khoảng cách dọc giữa các ô
-  //               childAspectRatio: 3 / 4,
-  //             ),
-  //             itemCount: _getRooms.length,
-  //             itemBuilder: (context, index) {
-  //               return PromoCardWithoutLike(_getRooms[index]);
-  //             },
-  //           );
-  //         } else {
-  //           return Center(child: Text('Room not found'));
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
 }

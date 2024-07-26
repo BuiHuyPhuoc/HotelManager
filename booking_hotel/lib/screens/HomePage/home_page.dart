@@ -3,6 +3,7 @@ import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/widgets/promo_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -53,14 +54,14 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Ở Mọi Nơi",
+                        AppLocalizations.of(context)!.homePageLogan1,
                         style: TextStyle(
                             fontSize: 30,
                             color: Theme.of(context).colorScheme.onSurface),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        "Mà Bạn Tới!",
+                        AppLocalizations.of(context)!.homePageLogan2,
                         style: TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.bold,
@@ -73,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 Text(
-                  "Tốt nhất của từng khách sạn",
+                  AppLocalizations.of(context)!.bestHotelLabel,
                   style: GoogleFonts.montserrat(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 Text(
-                  "Các phòng đang giảm giá",
+                  AppLocalizations.of(context)!.currentSale,
                   style: GoogleFonts.montserrat(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

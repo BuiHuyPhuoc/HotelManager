@@ -21,6 +21,8 @@ public partial class DbBookingHotelContext : DbContext
 
     public virtual DbSet<Hotel> Hotels { get; set; }
 
+    public virtual DbSet<LoginDevice> LoginDevices { get; set; }
+
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderInfo> OrderInfos { get; set; }
@@ -37,11 +39,11 @@ public partial class DbBookingHotelContext : DbContext
     {
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACD54C8C26E");
+            entity.HasKey(e => e.BookingId).HasName("PK__Booking__73951ACDA13EE464");
 
             entity.ToTable("Booking");
 
-            entity.HasIndex(e => e.BookingId, "UQ__Booking__73951ACCC89AAC90").IsUnique();
+            entity.HasIndex(e => e.BookingId, "UQ__Booking__73951ACCDBE9E8C3").IsUnique();
 
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
             entity.Property(e => e.BookingDate).HasColumnType("datetime");
@@ -65,7 +67,7 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => new { e.RoomId, e.UserId }).HasName("PK__Favorite__E3FEB5D378B521CA");
+            entity.HasKey(e => new { e.RoomId, e.UserId }).HasName("PK__Favorite__E3FEB5D3B0F84D32");
 
             entity.ToTable("Favorite");
 
@@ -85,11 +87,11 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<Hotel>(entity =>
         {
-            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BBFFC40F573");
+            entity.HasKey(e => e.HotelId).HasName("PK__Hotel__46023BBF581D890C");
 
             entity.ToTable("Hotel");
 
-            entity.HasIndex(e => e.HotelId, "UQ__Hotel__46023BBEE13BF734").IsUnique();
+            entity.HasIndex(e => e.HotelId, "UQ__Hotel__46023BBE0D204C53").IsUnique();
 
             entity.Property(e => e.HotelId).HasColumnName("HotelID");
             entity.Property(e => e.HotelAddress).HasMaxLength(255);
@@ -100,13 +102,27 @@ public partial class DbBookingHotelContext : DbContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<LoginDevice>(entity =>
+        {
+            entity
+                .HasKey(e => new { e.UserId, e.DeviceToken }).HasName("PK__LoginDevice__E3FEB5D3B0F84D23");
+            entity.ToTable("LoginDevice");
+
+            entity.Property(e => e.DeviceToken).IsUnicode(false);
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__LoginDevi__UserI__48CFD27E");
+        });
+
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAF909405DD");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__C3905BAF0A2CF6FA");
 
             entity.ToTable("Order");
 
-            entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BAEF655C80F").IsUnique();
+            entity.HasIndex(e => e.OrderId, "UQ__Order__C3905BAED1D31DAF").IsUnique();
 
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
@@ -118,7 +134,7 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<OrderInfo>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__OrderInf__C3905BCFE896455C");
+            entity.HasKey(e => e.OrderId).HasName("PK__OrderInf__C3905BCF4149B7CA");
 
             entity.ToTable("OrderInfo");
 
@@ -132,11 +148,11 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<Room>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Room__328639197761D3A8");
+            entity.HasKey(e => e.RoomId).HasName("PK__Room__32863919E35175BD");
 
             entity.ToTable("Room");
 
-            entity.HasIndex(e => e.RoomId, "UQ__Room__32863918A4B01043").IsUnique();
+            entity.HasIndex(e => e.RoomId, "UQ__Room__3286391826C5CFB5").IsUnique();
 
             entity.Property(e => e.RoomId).HasColumnName("RoomID");
             entity.Property(e => e.DiscountPrice).HasColumnType("decimal(18, 0)");
@@ -148,14 +164,17 @@ public partial class DbBookingHotelContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACB3FFE6D9");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACE995824D");
 
             entity.ToTable("User");
 
-            entity.HasIndex(e => e.UserId, "UQ__User__1788CCAD6640C1F4").IsUnique();
+            entity.HasIndex(e => e.UserId, "UQ__User__1788CCAD61DCE79B").IsUnique();
 
             entity.Property(e => e.UserId).HasColumnName("UserID");
             entity.Property(e => e.DateOfBirth).HasColumnType("datetime");
+            entity.Property(e => e.Role)
+                .HasMaxLength(12)
+                .IsUnicode(false);
             entity.Property(e => e.UserGmail)
                 .HasMaxLength(100)
                 .IsUnicode(false);

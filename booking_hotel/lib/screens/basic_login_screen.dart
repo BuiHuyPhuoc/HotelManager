@@ -1,11 +1,13 @@
-import 'package:booking_hotel/class/shared_preferences.dart';
-import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/model/user.dart';
-import 'package:booking_hotel/screens/home_layout.dart';
+import 'package:booking_hotel/class/auth_service.dart';
+// import 'package:booking_hotel/class/shared_preferences.dart';
+// import 'package:booking_hotel/components/CustomToast.dart';
+// import 'package:booking_hotel/model/user.dart';
+// import 'package:booking_hotel/screens/auth_page.dart';
 import 'package:booking_hotel/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class BasicLoginScreen extends StatefulWidget {
@@ -50,14 +52,14 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "ĐĂNG NHẬP",
+                AppLocalizations.of(context)!.signIn.toUpperCase(),
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface),
               ),
               Text(
-                "Để quản lý tài khoản của bạn",
+                AppLocalizations.of(context)!.toManageAccount,
                 style: GoogleFonts.montserrat(
                     fontSize: 18,
                     color: Theme.of(context).colorScheme.onSurface),
@@ -69,13 +71,13 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
                 controller: emailInputField,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Vui lòng nhập email';
+                    return AppLocalizations.of(context)!.pleaseInputField('email');
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  label: const Text('Email'),
-                  hintText: 'Nhập email',
+                  label: Text(AppLocalizations.of(context)!.userInfo('email')),
+                  hintText: AppLocalizations.of(context)!.userInfo('email'),
                   hintStyle: const TextStyle(),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -103,13 +105,13 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
                 obscuringCharacter: '*',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Vui lòng nhập mật khẩu';
+                    return AppLocalizations.of(context)!.pleaseInputField('password');
                   }
                   return null;
                 },
                 decoration: InputDecoration(
-                  label: const Text('Mật khẩu'),
-                  hintText: 'Nhập mật khẩu',
+                  label: Text(AppLocalizations.of(context)!.userInfo('password')),
+                  hintText: AppLocalizations.of(context)!.userInfo('password'),
                   hintStyle: const TextStyle(),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -132,7 +134,7 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
               SizedBox(
                 height: 5,
               ),
-              profileSettingField(() {}, Icons.dark_mode, "Chế độ nền tối"),
+              profileSettingField(() {}, Icons.dark_mode, AppLocalizations.of(context)!.darkMode),
               SizedBox(
                 height: 5,
               ),
@@ -143,28 +145,29 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
                       backgroundColor: WidgetStatePropertyAll<Color>(
                           Theme.of(context).colorScheme.primary)),
                   child: Text(
-                    'Đăng nhập',
+                    AppLocalizations.of(context)!.signIn,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onPrimary),
                   ),
                   onPressed: () async {
                     if (_formSignInKey.currentState!.validate()) {
-                      User? loggedInUser = await loginUser(
-                          emailInputField.text, passwordInputField.text);
-                      if (loggedInUser == null) {
-                        WarningToast(
-                                context: context,
-                                content: "Sai tên đăng nhập hoặc mật khẩu")
-                            .ShowToast();
-                        return;
-                      }
-                      await UserPreferences.saveUser(loggedInUser);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (e) => const HomeLayout(),
-                        ),
-                      );
+                      SignIn(context, emailInputField.text, passwordInputField.text);
+                      // User? loggedInUser = await loginUser(
+                      //     emailInputField.text, passwordInputField.text);
+                      // if (loggedInUser == null) {
+                      //   WarningToast(
+                      //           context: context,
+                      //           content: AppLocalizations.of(context)!.userNotFound)
+                      //       .ShowToast();
+                      //   return;
+                      // }
+                      // await UserPreferences.saveUser(loggedInUser);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (e) => AuthPage(),
+                      //   ),
+                      // );
                     }
                   },
                 ),
@@ -204,8 +207,6 @@ class _BasicLoginScreenState extends State<BasicLoginScreen> {
                     Provider.of<ThemeProvider>(widget.context, listen: false)
                         .toggleTheme();
                     setState(() {
-                      // isDarkmode = Theme.of(widget.context).brightness ==
-                      //     Brightness.dark;
                       isDarkmode = !isDarkmode;
                     });
                   })

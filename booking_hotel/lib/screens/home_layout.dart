@@ -6,6 +6,7 @@ import 'package:booking_hotel/screens/AllRoomPage/all_room_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -68,7 +69,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: "Trang chủ",
+                label: AppLocalizations.of(context)!.homePage,
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -80,7 +81,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: 'Tất cả',
+                label: AppLocalizations.of(context)!.allPage,
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -92,7 +93,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: 'Yêu thích',
+                label: AppLocalizations.of(context)!.favoritePage,
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -104,7 +105,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           .onSurface
                           .withOpacity(0.3),
                 ),
-                label: 'Cài đặt',
+                label: AppLocalizations.of(context)!.settingPage,
               ),
             ],
           ),
@@ -115,7 +116,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         final isExitWarning = differenece >= Duration(seconds: 2);
         timeBackPressed = DateTime.now();
         if (isExitWarning) {
-          final message = "Ấn quay về một lần nữa để thoát";
+          final message = AppLocalizations.of(context)!.pressAgainToExit;
           NotifyToast(
                   context: context,
                   content: message,

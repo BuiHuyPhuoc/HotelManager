@@ -1,12 +1,16 @@
+import 'package:diacritic/diacritic.dart';
+
 enum Category { All, City, Hotel }
 
 enum ImageType { svg, png, network, file, unknown }
 
+enum Role { admin, staff }
+
 extension CategoryTypeExtension on String {
   Category get categoryType {
-    if (this == "Tất cả" || this == "All") {
+    if (this == "Tất cả" || removeDiacritics(this).toLowerCase() == "all") {
       return Category.All;
-    } else if (this.endsWith("thành phố")) {
+    } else if (this.endsWith("thành phố") || removeDiacritics(this).toLowerCase().endsWith('city')) {
       return Category.City;
     } else {
       return Category.Hotel;

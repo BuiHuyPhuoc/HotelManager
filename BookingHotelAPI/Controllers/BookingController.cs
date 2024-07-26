@@ -1,5 +1,6 @@
 ﻿using BookingHotelAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BookingHotelAPI.Controllers
 {
@@ -43,8 +44,6 @@ namespace BookingHotelAPI.Controllers
             var getAllBookingOrder = db.Bookings.ToList();
             return Ok(getAllBookingOrder);
         }
-<<<<<<< Updated upstream
-=======
 
         [HttpPut("{bookingId}")]
         public IActionResult UpdateBookingStatus(string bookingId, [FromBody] String status)
@@ -107,12 +106,10 @@ namespace BookingHotelAPI.Controllers
                 int parseValue = int.Parse(userId);
                 var booking = db.Bookings.Where(x => x.UserId == parseValue).ToList();
                 return Ok(booking);
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
->>>>>>> Stashed changes
     }
 }

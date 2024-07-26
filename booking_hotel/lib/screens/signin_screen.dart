@@ -1,14 +1,19 @@
+// import 'package:booking_hotel/admin/booked_manager/booked_room.dart';
+// import 'package:booking_hotel/class/shared_preferences.dart';
+// import 'package:booking_hotel/model/login_device.dart';
+// import 'package:booking_hotel/model/user.dart' as models;
+// import 'package:booking_hotel/components/CustomToast.dart';
+// import 'package:booking_hotel/model/user.dart';
+// import 'package:booking_hotel/screens/auth_page.dart';
+// import 'package:booking_hotel/screens/home_layout.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:booking_hotel/class/auth_service.dart';
-import 'package:booking_hotel/class/shared_preferences.dart';
-import 'package:booking_hotel/model/user.dart' as models;
-import 'package:booking_hotel/components/CustomToast.dart';
-import 'package:booking_hotel/model/user.dart';
-import 'package:booking_hotel/screens/home_layout.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:booking_hotel/screens/signup_screen.dart';
 import 'package:booking_hotel/widgets/custom_scaffold.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -30,51 +35,57 @@ class _SignInScreenState extends State<SignInScreen> {
     super.dispose();
   }
 
-  void emailSignIn() async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-    models.User? getAccount = await getUserByEmail(emailInputField.text);
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailInputField.text, password: passwordInputField.text);
-
-      if (getAccount == null) {
-        WarningToast(context: context, content: "Không tìm thấy tài khoản")
-            .ShowToast();
-        await FirebaseAuth.instance.signOut();
-        return;
-      }
-      UserPreferences.saveUser(getAccount);
-      Navigator.pop(context);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (e) => const HomeLayout(),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (getAccount != null) {
-        UserPreferences.saveUser(getAccount);
-        Navigator.pop(context);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (e) => const HomeLayout(),
-          ),
-        );
-      } else {
-        WarningToast(
-          context: context,
-          content: "Sai thông tin.",
-        ).ShowToast();
-        Navigator.pop(context);
-      }
-    }
+  void emailSignIn(BuildContext context) async {
+    SignIn(context, emailInputField.text, passwordInputField.text);
+    // showDialog(
+    //     context: context,
+    //     builder: (context) {
+    //       return const Center(
+    //         child: CircularProgressIndicator(),
+    //       );
+    //     });
+    // models.User? getAccount = await getUserByEmail(emailInputField.text);
+    // final getToken = await FirebaseMessaging.instance.getToken();
+    // try {
+    //   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //       email: emailInputField.text, password: passwordInputField.text);
+    //   if (getAccount == null) {
+    //     WarningToast(
+    //             context: context,
+    //             content: AppLocalizations.of(context)!.userNotFound)
+    //         .ShowToast();
+    //     await FirebaseAuth.instance.signOut();
+    //     return;
+    //   }
+    //   UserPreferences.saveUser(getAccount);
+      
+    //   //SaveDevice(LoginDevice(userId: getAccount.userId!, deviceToken: getToken!, loginStatus: true));
+    //   Navigator.pop(context);
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (e) => AuthPage(),
+    //     ),
+    //   );
+    // } catch (e) {
+    //   if (getAccount != null) {
+    //     UserPreferences.saveUser(getAccount);
+    //     //SaveDevice(LoginDevice(userId: getAccount.userId!, deviceToken: getToken!, loginStatus: true));
+    //     Navigator.pop(context);
+    //     Navigator.pushReplacement(
+    //       context,
+    //       MaterialPageRoute(
+    //         builder: (e) => (getAccount.role == "Admin") ? BookedRoom() : HomeLayout(),
+    //       ),
+    //     );
+    //   } else {
+    //     WarningToast(
+    //       context: context,
+    //       content: AppLocalizations.of(context)!.userNotFound,
+    //     ).ShowToast();
+    //     Navigator.pop(context);
+    //   }
+    // }
   }
 
   @override
@@ -105,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Welcome back',
+                      AppLocalizations.of(context)!.welcomeBack,
                       style: TextStyle(
                         fontSize: 30.0,
                         fontWeight: FontWeight.w900,
@@ -119,13 +130,16 @@ class _SignInScreenState extends State<SignInScreen> {
                       controller: emailInputField,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập email';
+                          return AppLocalizations.of(context)!.pleaseInputField(
+                              AppLocalizations.of(context)!.userInfo('email'));
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        label: const Text('Email'),
-                        hintText: 'Nhập email',
+                        label: Text(
+                            AppLocalizations.of(context)!.userInfo('email')),
+                        hintText:
+                            AppLocalizations.of(context)!.userInfo('email'),
                         hintStyle: const TextStyle(),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -154,13 +168,17 @@ class _SignInScreenState extends State<SignInScreen> {
                       obscuringCharacter: '*',
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter Password';
+                          return AppLocalizations.of(context)!.pleaseInputField(
+                              AppLocalizations.of(context)!
+                                  .userInfo('password'));
                         }
                         return null;
                       },
                       decoration: InputDecoration(
-                        label: const Text('Password'),
-                        hintText: 'Enter Password',
+                        label: Text(
+                            AppLocalizations.of(context)!.userInfo('password')),
+                        hintText:
+                            AppLocalizations.of(context)!.userInfo('password'),
                         hintStyle: const TextStyle(
                             //color: Colors.black26,
                             ),
@@ -183,40 +201,18 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(
                       height: 25.0,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: rememberPassword,
-                              onChanged: (bool? value) {
-                                setState(() {
-                                  rememberPassword = value!;
-                                });
-                              },
-                              activeColor:
-                                  Theme.of(context).colorScheme.outline,
-                            ),
-                            const Text(
-                              'Remember me',
-                              style: TextStyle(
-                                  //color: Colors.black45,
-                                  ),
-                            )
-                          ],
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'Forget password?',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          AppLocalizations.of(context)!.forgotPassword,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                     const SizedBox(
                       height: 25.0,
@@ -228,13 +224,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             backgroundColor: WidgetStatePropertyAll<Color>(
                                 Theme.of(context).colorScheme.primary)),
                         child: Text(
-                          'Sign In',
+                          AppLocalizations.of(context)!.signIn,
                           style: TextStyle(
                               color: Theme.of(context).colorScheme.onPrimary),
                         ),
                         onPressed: () async {
                           if (_formSignInKey.currentState!.validate()) {
-                            emailSignIn();
+                            emailSignIn(context);
                           }
                         },
                       ),
@@ -251,13 +247,13 @@ class _SignInScreenState extends State<SignInScreen> {
                             color: Colors.grey.withOpacity(0.5),
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: 0,
                             horizontal: 10,
                           ),
                           child: Text(
-                            'Sign in with',
+                            AppLocalizations.of(context)!.signInWith,
                             style: TextStyle(
                                 //color: Colors.black45,
                                 ),
@@ -295,12 +291,13 @@ class _SignInScreenState extends State<SignInScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Don\'t have an account? ',
+                        Text(
+                          AppLocalizations.of(context)!.dontHaveAccount,
                           style: TextStyle(
                               //color: Colors.black45,
                               ),
                         ),
+                        SizedBox(width: 4,),
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -311,7 +308,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             );
                           },
                           child: Text(
-                            'Sign up',
+                            AppLocalizations.of(context)!.signUp,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
