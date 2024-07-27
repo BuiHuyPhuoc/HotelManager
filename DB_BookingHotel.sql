@@ -88,15 +88,21 @@ go
 CREATE TABLE [Favorite] (
 	[RoomID] int references [Room]([RoomID]),
 	[UserID] int references [User]([UserID]),
-	[Date] date,
+	[Date] DATETIME,
 	Primary key([RoomID], [UserID])
 );
 GO
 
 create table [LoginDevice] (
 	[UserID] int references [User]([UserID]),
-	[DeviceToken] varchar(max),
-	[LoginStatus] bit
+	[DeviceToken] varchar(255),
+	[LoginStatus] bit,
+	primary key([UserID],[DeviceToken])
+)
+
+create table [Amenities] (
+	[RoomID] int references [Room]([RoomID]),
+	[AmenityName] VARCHAR(20)
 )
 
 insert into [User] ([UserGmail], [UserPassword], [UserName], [DateOfBirth], [UserPhone], [UserIDCard], [Role]) values ('lgarnam0@hao123.com', '12345', 'Layton Garnam', '2024-05-31', '2539509557', '4041378208', 'User');
@@ -155,3 +161,26 @@ insert into [Favorite] values (4, 7, getdate())
 insert into [Booking] values ('20240801', '20240802', 'Unpaid', 0, 200000, 200000, 11, 1, getdate())
 insert into [Booking] values ('20240803', '20240805', 'Unpaid', 0, 400000, 400000, 11, 1, getdate())
 insert into [Booking] values ('20240807', '20240810', 'Unpaid', 0, 800000, 800000, 11, 2, getdate())
+
+insert into [Amenities] values (1, 'WIFI')
+insert into [Amenities] values (1, 'BEDROOM')
+insert into [Amenities] values (1, 'PARKING')
+insert into [Amenities] values (1, 'RESTAURANT')
+insert into [Amenities] values (1, 'POOL')
+insert into [Amenities] values (2, 'WIFI')
+insert into [Amenities] values (2, 'BEDROOM')
+insert into [Amenities] values (2, 'PARKING')
+insert into [Amenities] values (3, 'RESTAURANT')
+insert into [Amenities] values (3, 'POOL')
+insert into [Amenities] values (4, 'WIFI')
+insert into [Amenities] values (5, 'WIFI')
+insert into [Amenities] values (6, 'WIFI')
+insert into [Amenities] values (7, 'WIFI')
+insert into [Amenities] values (8, 'WIFI')
+insert into [Amenities] values (9, 'WIFI')
+insert into [Amenities] values (10, 'POOL')
+insert into [Amenities] values (11, 'WIFI')
+insert into [Amenities] values (12, 'WIFI')
+insert into [Amenities] values (13, 'WIFI')
+insert into [Amenities] values (14, 'WIFI')
+insert into [Amenities] values (15, 'WIFI')

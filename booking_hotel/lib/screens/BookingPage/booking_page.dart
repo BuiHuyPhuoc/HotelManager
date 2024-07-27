@@ -13,7 +13,9 @@ import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
 import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -300,6 +302,10 @@ class _BookingPageState extends State<BookingPage> {
               // decoration: BoxDecoration(color: Colors.white),
               child: Column(
                 children: [
+                  BookingContruction(),
+                  SizedBox(
+                    height: 10,
+                  ),
                   BookingInfoCard(),
                   SizedBox(
                     height: 10,
@@ -311,6 +317,73 @@ class _BookingPageState extends State<BookingPage> {
             SizedBox(height: 10),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget ItemBookingConstruction(
+      {required Color color, required String title}) {
+    return Row(
+      children: [
+        Container(
+          height: 20,
+          width: 20,
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(50)),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          title,
+          style: GoogleFonts.manrope(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Theme.of(context).colorScheme.surface),
+        )
+      ],
+    );
+  }
+
+  Widget BookingContruction() {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).colorScheme.onSurface),
+      padding: EdgeInsets.all(20),
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topCenter,
+            child: Text(
+              AppLocalizations.of(context)!.sign.toUpperCase(),
+              style: GoogleFonts.montserrat(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          ItemBookingConstruction(
+              color: Colors.grey.withOpacity(0.8),
+              title: AppLocalizations.of(context)!.bookingType("full")),
+          SizedBox(
+            height: 10,
+          ),
+          ItemBookingConstruction(
+              color: Colors.yellowAccent,
+              title: AppLocalizations.of(context)!.bookingType("canCheckOut")),
+          SizedBox(
+            height: 10,
+          ),
+          ItemBookingConstruction(
+              color: Colors.cyan,
+              title: AppLocalizations.of(context)!.bookingType("canCheckIn")),
+        ],
       ),
     );
   }

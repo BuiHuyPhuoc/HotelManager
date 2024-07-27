@@ -16,8 +16,12 @@ class StripeService {
             paymentIntentClientSecret: paymentIntentClientSecret,
             merchantDisplayName: "Huy Phuoc"),
       );
-      await _processPayment();
-      return true;
+      bool result = true;
+      result = await _processPayment();
+      if (result) {
+        return true;
+      }
+      return false;
     } catch (e) {
       print(e);
       return false;
@@ -50,11 +54,18 @@ class StripeService {
   Future<bool> _processPayment() async {
     try {
       await Stripe.instance.presentPaymentSheet();
+      //await Stripe.instance.confirmPaymentSheetPayment();
+
+      // If the above lines do not throw an error, the payment was successful.
+      print('Payment successful');
       return true;
-      // await Stripe.instance.confirmPaymentSheetPayment();
-      
     } catch (e) {
-      print(e);
+      if (e is StripeException) {
+        print('Error from Stripe: ${e.error.localizedMessage}');
+        return false;
+      } else {
+        print('Error: $e');
+      }
       return false;
     }
   }

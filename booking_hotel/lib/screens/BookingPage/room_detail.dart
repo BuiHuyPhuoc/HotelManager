@@ -1,6 +1,7 @@
 import 'package:booking_hotel/class/api_respond.dart';
 import 'package:booking_hotel/class/user_preferences.dart';
 import 'package:booking_hotel/components/CustomToast.dart';
+import 'package:booking_hotel/model/amenity.dart';
 import 'package:booking_hotel/model/room.dart';
 import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/screens/BookingPage/booking_page.dart';
@@ -25,8 +26,10 @@ class _RoomDetailState extends State<RoomDetail> {
   Room? room;
   late bool isFavorite = false;
   late User? loggedInUser;
+  late List<Amenity> roomAmenities;
   void GetData() async {
     room = await getRoomById(widget.idRoom);
+    roomAmenities = await getAmenitiesByRoomId(widget.idRoom);
     await GetLoggedUser();
     if (loggedInUser != null) {
       isFavorite = await isFavoriteRoom(
@@ -150,7 +153,7 @@ class _RoomDetailState extends State<RoomDetail> {
                                             "Bạn phải đăng nhập mới được thêm vào danh sách yêu thích",
                                         duration: Duration(seconds: 3))
                                     .ShowToast();
-                                    Navigator.of(context).pop();
+                                Navigator.of(context).pop();
                                 return;
                               }
                               ApiResponse response = await addLikeRoom(
@@ -221,37 +224,55 @@ class _RoomDetailState extends State<RoomDetail> {
                         ),
                         Container(
                           height: 100,
-                          child: ListView(
+                          child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            children: <Widget>[
-                              amenityIcon(
-                                  icon: Icon(Icons.wifi),
-                                  color: Colors.cyan,
-                                  text: "Wifi"),
-                              amenityIcon(
-                                  icon: Icon(Icons.bed),
-                                  color: Colors.orange,
-                                  text: "Nệm"),
-                              amenityIcon(
-                                  icon: Icon(Icons.ac_unit),
-                                  color: Colors.blue,
-                                  text: "AC"),
-                              amenityIcon(
-                                  icon: Icon(Icons.pool),
-                                  color:
-                                      const Color.fromARGB(255, 255, 241, 115),
-                                  text: "Bể bơi"),
-                              amenityIcon(
-                                  icon: Icon(Icons.local_parking),
-                                  color: Color.fromARGB(255, 122, 195, 255),
-                                  text: "Bãi xe"),
-                              amenityIcon(
-                                  icon: Icon(Icons.restaurant),
-                                  color: Color.fromARGB(255, 255, 224, 98),
-                                  text: "Nhà hàng"),
-                            ],
+                            itemCount: roomAmenities.length,
+                            itemBuilder: (context, index) {
+                              return amenityIcon(
+                                icon: Icon(
+                                  fromStringAmenityToIcon(
+                                      roomAmenities[index].amenityName),
+                                ),
+                                color: Colors.cyan,
+                                text: translateFromAmenity(
+                                    roomAmenities[index].amenityName, context),
+                              );
+                            },
                           ),
                         )
+                        // Container(
+                        //   height: 100,
+                        //   child: ListView(
+                        //     scrollDirection: Axis.horizontal,
+                        //     children: <Widget>[
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.wifi),
+                        //           color: Colors.cyan,
+                        //           text: "Wifi"),
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.bed),
+                        //           color: Colors.orange,
+                        //           text: "Nệm"),
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.ac_unit),
+                        //           color: Colors.blue,
+                        //           text: "AC"),
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.pool),
+                        //           color:
+                        //               const Color.fromARGB(255, 255, 241, 115),
+                        //           text: "Bể bơi"),
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.local_parking),
+                        //           color: Color.fromARGB(255, 122, 195, 255),
+                        //           text: "Bãi xe"),
+                        //       amenityIcon(
+                        //           icon: Icon(Icons.restaurant),
+                        //           color: Color.fromARGB(255, 255, 224, 98),
+                        //           text: "Nhà hàng"),
+                        //     ],
+                        //   ),
+                        // )
                       ],
                     ),
                   )
@@ -323,7 +344,6 @@ class _RoomDetailState extends State<RoomDetail> {
                           child: Text(
                             AppLocalizations.of(context)!.bookNow.toUpperCase(),
                             style: TextStyle(
-                             
                                 color: Theme.of(context).colorScheme.onPrimary,
                                 fontSize: 18),
                           ),
@@ -331,7 +351,11 @@ class _RoomDetailState extends State<RoomDetail> {
                       ),
                       onTap: () {
                         if (loggedInUser == null) {
-                          WarningToast(context: context, content: "Bạn cần phải đăng nhập để đặt phòng").ShowToast();
+                          WarningToast(
+                                  context: context,
+                                  content:
+                                      "Bạn cần phải đăng nhập để đặt phòng")
+                              .ShowToast();
                           return;
                         }
                         Navigator.push(

@@ -87,5 +87,9 @@
   "successPayment": "Thanh toán thành công.",
   "failPayment": "Thanh toán thất bại.",
   "featureIsUpdating": "Tính năng đang được cập nhật.",
-  "errorWarning": "Có lỗi xuất hiện."
+  "errorWarning": "Có lỗi xuất hiện.",
+  "amenity": "{name, select, WIFI{wifi} PARKING{đậu xe} RESTAURANT{nhà hàng} POOL{hồ bơi} BEDROOM{phòng ngủ} other{lỗi}}",
+  "bookingType": "{Type, select, canCheckIn{Có thể checkin} canCheckOut{Có thể checkout} full{Full} other{error}}",
+  "sign": "Kí hiệu"
+
 }

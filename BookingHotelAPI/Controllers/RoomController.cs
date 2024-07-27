@@ -3,6 +3,8 @@ using BookingHotelAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using System.Linq;
 
 namespace BookingHotelAPI.Controllers
 {
@@ -299,6 +301,22 @@ namespace BookingHotelAPI.Controllers
                                   b.BookingDate
                               };
             return Ok(bookingRoom);
+        }
+
+
+        [HttpGet]
+        [Route("GetAmenitiesByRoomId")]
+        public IActionResult GetAmenitiesByRoomId(string roomId)
+        {
+            try
+            {
+                int parseValue = int.Parse(roomId);
+                var amenities = db.Amenities.Where(x => x.RoomId == parseValue).ToList();
+                return Ok(amenities);   
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
     }

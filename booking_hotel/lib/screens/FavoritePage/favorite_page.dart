@@ -6,6 +6,7 @@ import 'package:booking_hotel/model/user.dart';
 import 'package:booking_hotel/screens/basic_login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 class FavoritePage extends StatefulWidget {
   const FavoritePage({super.key});
 
@@ -32,6 +33,7 @@ class _FavoritePageState extends State<FavoritePage> {
       setState(() {});
     }
   }
+
   @override
   void setState(VoidCallback fn) {
     if (mounted) {

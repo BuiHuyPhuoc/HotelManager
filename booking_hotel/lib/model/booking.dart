@@ -11,7 +11,7 @@ class Booking {
   final String endDate;
   final String bookingDate;
   final double bookingDiscount;
-  final String? bookingStatus;
+  String? bookingStatus;
   final double bookingPaid;
   final double bookingPrice;
   final int userId;
