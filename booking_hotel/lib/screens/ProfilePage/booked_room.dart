@@ -18,16 +18,15 @@ class BookedRoom extends StatefulWidget {
 class _BookedRoomState extends State<BookedRoom> {
   late Future<List<Booking>> _bookingRoom;
 
-  void GetData() async {
-    User? getLoggedUser = await UserPreferences.getUser();
-    _bookingRoom = getBookingByUserId(getLoggedUser!.userId.toString());
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    GetData();
+    _bookingRoom = GetData();
+  }
+
+  Future<List<Booking>> GetData() async {
+    User? getLoggedUser = await UserPreferences.getUser();
+    return getBookingByUserId(getLoggedUser!.userId.toString());
   }
 
   @override
@@ -222,7 +221,8 @@ class _BookedRoomState extends State<BookedRoom> {
                         final bool? shouldRefresh = await Navigator.push<bool>(
                           context,
                           MaterialPageRoute(
-                            builder: (e) => DetailBookedRoomAdmin(booking: room),
+                            builder: (e) =>
+                                DetailBookedRoomAdmin(booking: room),
                           ),
                         );
                         if (shouldRefresh != null && shouldRefresh) {

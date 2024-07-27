@@ -170,5 +170,24 @@
   "successPayment": "Payment was successful.",
   "failPayment": "Payment was fail.",
   "featureIsUpdating": "This feature is updating.",
-  "errorWarning": "Some errors occured."
+  "errorWarning": "Some errors occured.",
+  "amenity": "{name, select, WIFI{wifi} PARKING{parking} RESTAURANT{restaurant} POOL{pool} BEDROOM{bedroom} other{error}}",
+  "@amenity": {
+    "description": "All of amenity",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "bookingType": "{Type, select, canCheckIn{Can checkin} canCheckOut{Can checkout} full{Full} other{error}}",
+  "@bookingType": {
+    "description": "All of booking status",
+    "placeholders": {
+      "Type": {
+        "type": "String"
+      }
+    }
+  },
+  "sign": "Sign"
 }

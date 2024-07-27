@@ -51,6 +51,7 @@ class _PaymentPageState extends State<PaymentPage> {
             bool result = await StripeService.instance
                 .makePayment(widget.booking.bookingPrice.toInt());
             if (result) {
+              widget.booking.bookingStatus = "Paid";
               createBooking(widget.booking);
               
               Navigator.pushAndRemoveUntil(

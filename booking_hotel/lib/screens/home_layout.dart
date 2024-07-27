@@ -25,10 +25,12 @@ class _HomeLayoutState extends State<HomeLayout> {
     FavoritePage(),
     AccountPage()
   ];
+  
   @override
   Widget build(BuildContext context) {
     DateTime timeBackPressed = DateTime.now();
     // ignore: deprecated_member_use
+    
     return WillPopScope(
       child: Scaffold(
         body: body[_currentIndex],
