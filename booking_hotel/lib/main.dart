@@ -30,7 +30,7 @@ import 'package:booking_hotel/theme/theme_provider.dart';
 import 'package:booking_hotel/screens/signin_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:booking_hotel/screens/BookingPage/payment_page.dart';
-
+  
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {

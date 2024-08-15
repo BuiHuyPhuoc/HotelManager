@@ -191,30 +191,30 @@ class _BookedRoomState extends State<BookedRoom> {
               SizedBox(height: 10),
               Row(
                 children: [
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color:
-                                  Theme.of(context).colorScheme.outlineVariant),
-                          borderRadius: BorderRadius.circular(50)),
-                      child: Center(
-                        child: Text(
-                          StringFormat.capitalize(
-                              AppLocalizations.of(context)!.cancelTicket),
-                          style: TextStyle(
-                              fontFamily: 'Arial',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).colorScheme.onPrimary),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  // Expanded(
+                  //   child: Container(
+                  //     padding: EdgeInsets.symmetric(vertical: 5),
+                  //     decoration: BoxDecoration(
+                  //         border: Border.all(
+                  //             color:
+                  //                 Theme.of(context).colorScheme.outlineVariant),
+                  //         borderRadius: BorderRadius.circular(50)),
+                  //     child: Center(
+                  //       child: Text(
+                  //         StringFormat.capitalize(
+                  //             AppLocalizations.of(context)!.cancelTicket),
+                  //         style: TextStyle(
+                  //             fontFamily: 'Arial',
+                  //             fontSize: 16,
+                  //             fontWeight: FontWeight.bold,
+                  //             color: Theme.of(context).colorScheme.onPrimary),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
                   Expanded(
                     child: InkWell(
                       onTap: () async {
